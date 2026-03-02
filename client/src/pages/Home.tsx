@@ -11,6 +11,7 @@ import CompanyMatrix from "@/components/sections/CompanyMatrix";
 import SolutionPaths from "@/components/sections/SolutionPaths";
 import DomainReference from "@/components/sections/DomainReference";
 import UniversalFramework from "@/components/sections/UniversalFramework";
+import QuestionBank from "@/components/sections/QuestionBank";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663351598461/6wyqUKbV9QdyQXzBURssR3/hero-bg-7C8xskdCPo2j9ELra32P2r.webp";
 
@@ -21,6 +22,7 @@ const sectionComponents: Record<SectionId, React.ComponentType<{ searchQuery: st
   paths: SolutionPaths,
   domains: DomainReference,
   universal: UniversalFramework,
+  "question-bank": QuestionBank,
 };
 
 const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
@@ -30,6 +32,7 @@ const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   paths: { title: "Solution Paths", subtitle: "6 ready-to-use structured answer paths" },
   domains: { title: "Domain Reference", subtitle: "9 domains with metrics & typical focus areas" },
   universal: { title: "Universal Framework", subtitle: "7-step structure for any question type" },
+  "question-bank": { title: "Lewis Lin's PM Question Bank", subtitle: "200+ real interview questions from Decode & Conquer" },
 };
 
 export default function Home() {
@@ -47,6 +50,7 @@ export default function Home() {
       "4": "paths",
       "5": "domains",
       "6": "universal",
+      "7": "question-bank",
     };
     if (sectionMap[e.key]) {
       setActiveSection(sectionMap[e.key]);

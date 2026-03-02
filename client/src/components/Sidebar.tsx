@@ -2,9 +2,9 @@
 // Persistent left sidebar with icon + label navigation, search, and active state
 
 import { useState } from "react";
-import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight } from "lucide-react";
+import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight, Library } from "lucide-react";
 
-export type SectionId = "signal" | "categories" | "matrix" | "paths" | "domains" | "universal";
+export type SectionId = "signal" | "categories" | "matrix" | "paths" | "domains" | "universal" | "question-bank";
 
 interface SidebarProps {
   activeSection: SectionId;
@@ -20,6 +20,7 @@ const navItems: { id: SectionId; label: string; icon: React.ReactNode; shortcut:
   { id: "paths", label: "Solution Paths", icon: <GitBranch size={16} />, shortcut: "4" },
   { id: "domains", label: "Domain Reference", icon: <Globe size={16} />, shortcut: "5" },
   { id: "universal", label: "Universal Framework", icon: <BookOpen size={16} />, shortcut: "6" },
+  { id: "question-bank", label: "Lewis Lin's Q Bank", icon: <Library size={16} />, shortcut: "7" },
 ];
 
 export default function Sidebar({ activeSection, onSectionChange, searchQuery, onSearchChange }: SidebarProps) {
@@ -90,7 +91,7 @@ export default function Sidebar({ activeSection, onSectionChange, searchQuery, o
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-3 px-2">
-          <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest px-3 mb-2">Sections</div>
+          <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest px-3 mb-2">Framework</div>
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -126,6 +127,9 @@ export default function Sidebar({ activeSection, onSectionChange, searchQuery, o
           <div className="text-[10px] text-muted-foreground font-mono text-center leading-relaxed">
             PM Interview Reference<br />
             <span className="text-primary/70">Signal → Category → Path</span>
+          </div>
+          <div className="mt-2 text-[9px] text-muted-foreground/50 font-mono text-center">
+            Q Bank: Lewis Lin's Decode &amp; Conquer
           </div>
         </div>
       </aside>
