@@ -266,7 +266,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
           <span>Section 7</span>
         </div>
         <h2 className="text-3xl font-bold text-foreground mb-2">
-          Product Sense | Analytical Interview Questions
+          Product Sense & Analytical Questions
         </h2>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
           The <span className="text-foreground font-semibold">200 most recent real interview questions</span>{" "}

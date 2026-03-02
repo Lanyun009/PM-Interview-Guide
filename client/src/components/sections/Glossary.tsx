@@ -190,7 +190,7 @@ export default function Glossary({ searchQuery, highlightTermId }: GlossaryProps
           <Hash size={12} />
           <span>Section 8</span>
         </div>
-        <h2 className="text-3xl font-bold text-foreground mb-2">PM Glossary</h2>
+        <h2 className="text-3xl font-bold text-foreground mb-2">Product Management Glossary</h2>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
           <span className="text-foreground font-semibold">{glossary.length} essential terms</span> spanning metrics, frameworks, experimentation, and business concepts. Every term includes a definition, formula, real-world example, and related terms.
         </p>

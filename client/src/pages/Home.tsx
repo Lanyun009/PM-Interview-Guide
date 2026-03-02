@@ -24,8 +24,8 @@ const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   paths: { title: "Solution Paths", subtitle: "6 ready-to-use structured answer paths" },
   domains: { title: "Domain Reference", subtitle: "9 domains with metrics & typical focus areas" },
   universal: { title: "Universal Framework", subtitle: "7-step structure for any question type" },
-  "question-bank": { title: "PS | Analytical Interview Questions", subtitle: "200 most recent real interview questions" },
-  "glossary": { title: "PM Glossary", subtitle: "Essential metrics, frameworks & business terms defined" },
+  "question-bank": { title: "Product Sense & Analytical Questions", subtitle: "200 most recent real interview questions" },
+  "glossary": { title: "Product Management Glossary", subtitle: "Essential metrics, frameworks & business terms defined" },
 };
 
 export default function Home() {
