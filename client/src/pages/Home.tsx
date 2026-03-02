@@ -13,6 +13,7 @@ import SolutionPaths, { FRAMEWORK_HINT_TO_PATH_ID } from "@/components/sections/
 import DomainReference from "@/components/sections/DomainReference";
 import UniversalFramework from "@/components/sections/UniversalFramework";
 import QuestionBank from "@/components/sections/QuestionBank";
+import Glossary from "@/components/sections/Glossary";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663351598461/6wyqUKbV9QdyQXzBURssR3/hero-bg-7C8xskdCPo2j9ELra32P2r.webp";
 
@@ -24,6 +25,7 @@ const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   domains: { title: "Domain Reference", subtitle: "9 domains with metrics & typical focus areas" },
   universal: { title: "Universal Framework", subtitle: "7-step structure for any question type" },
   "question-bank": { title: "PS | Analytical Interview Questions", subtitle: "200 most recent real interview questions" },
+  "glossary": { title: "PM Glossary", subtitle: "Essential metrics, frameworks & business terms defined" },
 };
 
 export default function Home() {
@@ -61,6 +63,7 @@ export default function Home() {
       "5": "domains",
       "6": "universal",
       "7": "question-bank",
+      "8": "glossary",
     };
     if (sectionMap[e.key]) {
       setActiveSection(sectionMap[e.key]);
@@ -94,6 +97,7 @@ export default function Home() {
       case "domains":      return <DomainReference {...commonProps} />;
       case "universal":    return <UniversalFramework {...commonProps} />;
       case "question-bank": return <QuestionBank {...commonProps} onNavigateToPath={navigateToPath} />;
+      case "glossary":      return <Glossary {...commonProps} />;
       default:             return null;
     }
   };

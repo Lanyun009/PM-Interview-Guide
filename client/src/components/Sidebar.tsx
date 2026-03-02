@@ -2,9 +2,9 @@
 // Persistent left sidebar with icon + label navigation, search, and active state
 
 import { useState } from "react";
-import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight, Library } from "lucide-react";
+import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight, Library, BookMarked } from "lucide-react";
 
-export type SectionId = "signal" | "categories" | "matrix" | "paths" | "domains" | "universal" | "question-bank";
+export type SectionId = "signal" | "categories" | "matrix" | "paths" | "domains" | "universal" | "question-bank" | "glossary";
 
 interface SidebarProps {
   activeSection: SectionId;
@@ -21,6 +21,7 @@ const navItems: { id: SectionId; label: string; icon: React.ReactNode; shortcut:
   { id: "domains", label: "Domain Reference", icon: <Globe size={16} />, shortcut: "5" },
   { id: "universal", label: "Universal Framework", icon: <BookOpen size={16} />, shortcut: "6" },
   { id: "question-bank", label: "PS | Analytical Qs", icon: <Library size={16} />, shortcut: "7" },
+  { id: "glossary", label: "PM Glossary", icon: <BookMarked size={16} />, shortcut: "8" },
 ];
 
 export default function Sidebar({ activeSection, onSectionChange, searchQuery, onSearchChange }: SidebarProps) {
