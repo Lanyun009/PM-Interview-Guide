@@ -501,10 +501,9 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
             rel="noopener noreferrer"
             className="text-primary hover:underline inline-flex items-center gap-1"
           >
-            Lewis Lin's PM Question Bank (Decode & Conquer)
+            Lewis Lin's PM Question Bank
             <ExternalLink size={10} />
           </a>
-          {" "}— community-submitted real interview questions from the Decode and Conquer ecosystem.
           Showing the 200 most recent entries (Sep 2024–Aug 2025).
         </p>
       </div>
