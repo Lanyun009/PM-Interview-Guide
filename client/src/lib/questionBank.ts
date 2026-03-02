@@ -1,7 +1,6 @@
-// Lewis Lin's PM Question Bank — curated from the public Google Sheets
+// Lewis Lin's PM Question Bank — Most Recent 200 Questions (Sep 2024–Aug 2025)
 // Source: https://docs.google.com/spreadsheets/d/1rz10oEeLx-eGnilahKczYPhGfCUzIEKL-xRnjoQ-SX4
-// Dataset spans 2019–2025, 2500+ community-submitted real interview questions
-// This curated set of ~200 representative questions covers all types and major companies
+// Rows ~2601–2800, sorted newest-first. Interview format removed per user request.
 
 export type QuestionType =
   | "Product Sense"
@@ -11,19 +10,18 @@ export type QuestionType =
   | "Product Design"
   | "Behavioral"
   | "Estimation"
-  | "System Design"
   | "Pricing"
-  | "Leadership & Drive";
-
-export type InterviewFormat = "Phone" | "Video" | "In-Person" | "On-Site" | "First Round" | "Other";
+  | "Leadership & Drive"
+  | "Other";
 
 export interface BankQuestion {
   id: number;
+  date: string;
   company: string;
   question: string;
   type: QuestionType;
-  format: InterviewFormat;
   tags: string[];
+  frameworkHint?: string;
 }
 
 export const QUESTION_TYPES: QuestionType[] = [
@@ -34,29 +32,8 @@ export const QUESTION_TYPES: QuestionType[] = [
   "Product Design",
   "Behavioral",
   "Estimation",
-  "System Design",
   "Pricing",
   "Leadership & Drive",
-];
-
-export const COMPANIES = [
-  "Meta / Facebook",
-  "Google",
-  "Amazon",
-  "Microsoft",
-  "Uber",
-  "Airbnb",
-  "Stripe",
-  "Doordash",
-  "LinkedIn",
-  "Coinbase",
-  "Shopify",
-  "Netflix",
-  "Dropbox",
-  "Zynga",
-  "Adobe",
-  "Instacart",
-  "Walmart",
   "Other",
 ];
 
@@ -68,315 +45,232 @@ export const TYPE_COLORS: Record<QuestionType, string> = {
   "Product Design": "#f43f5e",
   "Behavioral": "#06b6d4",
   "Estimation": "#a78bfa",
-  "System Design": "#fb923c",
   "Pricing": "#34d399",
   "Leadership & Drive": "#e879f9",
+  "Other": "#94a3b8",
 };
 
 export const questionBank: BankQuestion[] = [
-  // ── FACEBOOK / META ──────────────────────────────────────────────
-  { id: 1, company: "Meta / Facebook", question: "How do you improve Facebook Reactions?", type: "Product Sense", format: "Phone", tags: ["engagement", "social", "improvement"] },
-  { id: 2, company: "Meta / Facebook", question: "Design a product that helps people become healthier.", type: "Product Sense", format: "Video", tags: ["health", "design", "0-to-1"] },
-  { id: 3, company: "Meta / Facebook", question: "Design a healthcare product for people moving to a new city.", type: "Product Sense", format: "Video", tags: ["health", "design", "social"] },
-  { id: 4, company: "Meta / Facebook", question: "Design a product to improve FB employees' health.", type: "Product Sense", format: "Video", tags: ["health", "internal", "design"] },
-  { id: 5, company: "Meta / Facebook", question: "Design a product for a library.", type: "Product Sense", format: "Video", tags: ["design", "accessibility", "0-to-1"] },
-  { id: 6, company: "Meta / Facebook", question: "Design a crisis management app.", type: "Product Sense", format: "Video", tags: ["design", "safety", "0-to-1"] },
-  { id: 7, company: "Meta / Facebook", question: "Build a feature for lending (goods) on Facebook.", type: "Product Sense", format: "In-Person", tags: ["marketplace", "social", "feature"] },
-  { id: 8, company: "Meta / Facebook", question: "What goals and success metrics would you set for buy & sell groups?", type: "Execution", format: "Phone", tags: ["metrics", "marketplace", "goals"] },
-  { id: 9, company: "Meta / Facebook", question: "Goals and success metrics for FB video.", type: "Execution", format: "Phone", tags: ["metrics", "video", "goals"] },
-  { id: 10, company: "Meta / Facebook", question: "How would you set a goal for Facebook Lite?", type: "Execution", format: "Phone", tags: ["metrics", "goals", "lite"] },
-  { id: 11, company: "Meta / Facebook", question: "You are PM of FB Login used by 3rd parties and you notice successful logins metrics is down on a Monday morning, what will you do?", type: "Execution", format: "Phone", tags: ["metric drop", "diagnosis", "login"] },
-  { id: 12, company: "Meta / Facebook", question: "You're the PM for FB watch. What goals would you set?", type: "Execution", format: "Phone", tags: ["metrics", "video", "goals"] },
-  { id: 13, company: "Meta / Facebook", question: "How would you set a goal for Facebook Marketplace?", type: "Execution", format: "Video", tags: ["metrics", "marketplace", "goals"] },
-  { id: 14, company: "Meta / Facebook", question: "You are PM of FB Events and you saw an overnight drop in RSVPs by 10%. How would you go about determining what happened?", type: "Execution", format: "Phone", tags: ["metric drop", "diagnosis", "events"] },
-  { id: 15, company: "Meta / Facebook", question: "How would you measure the success of Facebook Stories?", type: "Execution", format: "Phone", tags: ["metrics", "stories", "success"] },
-  { id: 16, company: "Meta / Facebook", question: "How would you measure success for IG stories.", type: "Execution", format: "Phone", tags: ["metrics", "instagram", "stories"] },
-  { id: 17, company: "Meta / Facebook", question: "One smart Engineer came to you with the idea that we should show recommended Marketplace items on Newsfeed. What will you do?", type: "Execution", format: "Phone", tags: ["prioritization", "marketplace", "newsfeed"] },
-  { id: 18, company: "Meta / Facebook", question: "IG Executives had a strategy meeting and decided they want to pursue something in the area of Education. You've been chosen as the PM to lead the effort. What do you do?", type: "Product Sense", format: "Video", tags: ["strategy", "education", "instagram"] },
-  { id: 19, company: "Meta / Facebook", question: "Few years ago Facebook used to restrict user signups with .edu emails only. Why did they remove that restriction and what were the pros & cons of doing so?", type: "Strategy", format: "In-Person", tags: ["strategy", "growth", "decision"] },
-  { id: 20, company: "Meta / Facebook", question: "How would you validate the idea for a borrowing and lending product? How would you build it?", type: "Product Sense", format: "First Round", tags: ["validation", "marketplace", "0-to-1"] },
-  { id: 21, company: "Meta / Facebook", question: "Design a feature for meaningful connections for Groups.", type: "Product Sense", format: "First Round", tags: ["design", "social", "groups"] },
-  { id: 22, company: "Meta / Facebook", question: "Define goal for IG shopping.", type: "Execution", format: "First Round", tags: ["metrics", "instagram", "shopping"] },
-  { id: 23, company: "Meta / Facebook", question: "How would Meta/FB be interested in facilitating the events feature? Define success metrics for events feature on Facebook.", type: "Analytical", format: "First Round", tags: ["metrics", "events", "success"] },
-  { id: 24, company: "Meta / Facebook", question: "You are the PM for Facebook app. Design a product for music.", type: "Product Sense", format: "First Round", tags: ["design", "music", "social"] },
-  { id: 25, company: "Meta / Facebook", question: "PM for IG/FB reels, how would you measure success. Tradeoff: reels engagement is up but stories engagement is down?", type: "Execution", format: "On-Site", tags: ["metrics", "reels", "tradeoff"] },
-  { id: 26, company: "Meta / Facebook", question: "You are the PM for 2028 LA Olympics. What would you build and why?", type: "Product Sense", format: "First Round", tags: ["design", "events", "0-to-1"] },
-  { id: 27, company: "Meta / Facebook", question: "You are the PM at Meta. Build a product for Group Travel?", type: "Product Sense", format: "First Round", tags: ["design", "travel", "groups"] },
-  { id: 28, company: "Meta / Facebook", question: "How would you incorporate a video service into Facebook?", type: "Product Sense", format: "On-Site", tags: ["video", "design", "strategy"] },
-  { id: 29, company: "Meta / Facebook", question: "Build a product around Volunteering.", type: "Product Sense", format: "First Round", tags: ["design", "social good", "0-to-1"] },
-  { id: 30, company: "Meta / Facebook", question: "Build a product around Education.", type: "Product Sense", format: "First Round", tags: ["design", "education", "0-to-1"] },
-  { id: 31, company: "Meta / Facebook", question: "Design a fitness APP for Meta.", type: "Product Sense", format: "First Round", tags: ["design", "health", "fitness"] },
-  { id: 32, company: "Meta / Facebook", question: "How would you build Meta Pay? Define success and why did Meta build this?", type: "Analytical", format: "First Round", tags: ["payments", "strategy", "metrics"] },
-  { id: 33, company: "Meta / Facebook", question: "Design a parking solution for Google / Apple maps.", type: "Product Sense", format: "First Round", tags: ["design", "maps", "transportation"] },
-  { id: 34, company: "Meta / Facebook", question: "Success Metrics for FB Fundraisers.", type: "Execution", format: "First Round", tags: ["metrics", "fundraising", "social good"] },
-  { id: 35, company: "Meta / Facebook", question: "How would you build Meta Pay? Define success and why did Meta build this?", type: "Analytical", format: "First Round", tags: ["payments", "fintech", "strategy"] },
-
-  // ── GOOGLE ───────────────────────────────────────────────────────
-  { id: 36, company: "Google", question: "How would you price a brand new Kindle book?", type: "Pricing", format: "In-Person", tags: ["pricing", "amazon", "books"] },
-  { id: 37, company: "Google", question: "Estimate memory needed for Nest cameras for fiscal year 2020.", type: "Estimation", format: "Phone", tags: ["estimation", "hardware", "iot"] },
-  { id: 38, company: "Google", question: "Evaluate competitor landscape (direct & indirect) for Drop Box.", type: "Strategy", format: "Phone", tags: ["strategy", "competitive", "cloud"] },
-  { id: 39, company: "Google", question: "How would you get more usage for Google Search?", type: "Strategy", format: "First Round", tags: ["growth", "search", "strategy"] },
-  { id: 40, company: "Google", question: "Design a washer/dryer for urban living.", type: "Product Sense", format: "First Round", tags: ["design", "hardware", "urban"] },
-  { id: 41, company: "Google", question: "Design a URL shortener.", type: "System Design", format: "On-Site", tags: ["system design", "technical", "scale"] },
-  { id: 42, company: "Google", question: "How would you design a bike sharing product?", type: "Product Sense", format: "On-Site", tags: ["design", "transportation", "sharing"] },
-  { id: 43, company: "Google", question: "Estimate the cost of storage for Google Photos. Why does Google offer such an expensive product for free?", type: "Estimation", format: "First Round", tags: ["estimation", "strategy", "photos"] },
-  { id: 44, company: "Google", question: "How many umbrellas are sold in a city when it rains?", type: "Estimation", format: "First Round", tags: ["estimation", "market size"] },
-  { id: 45, company: "Google", question: "Choose a google product. You're the lead PM for it, today is your first day. What are the top 2-3 things you'd do in the next 12 months?", type: "Product Sense", format: "First Round", tags: ["strategy", "prioritization", "onboarding"] },
-  { id: 46, company: "Google", question: "Design a book shelf for kids.", type: "Product Design", format: "First Round", tags: ["design", "kids", "hardware"] },
-  { id: 47, company: "Google", question: "Improve internet connectivity.", type: "Product Sense", format: "Phone", tags: ["infrastructure", "access", "improvement"] },
-  { id: 48, company: "Google", question: "Design an Uber app for people with disabilities.", type: "Product Design", format: "Video", tags: ["accessibility", "design", "inclusive"] },
-  { id: 49, company: "Google", question: "How would you increase revenue of MS PowerPoint?", type: "Product Sense", format: "Video", tags: ["monetization", "B2B", "strategy"] },
-  { id: 50, company: "Google", question: "Immigrants are coming into the US and need healthcare. Design a product for them.", type: "Product Sense", format: "Video", tags: ["health", "accessibility", "design"] },
-  { id: 51, company: "Google", question: "You're the CTO of a company, architect a program that provides unique IDs upon requests from a client. This program will be used by FB & Google. Hence needs to scale.", type: "System Design", format: "In-Person", tags: ["system design", "scale", "technical"] },
-  { id: 52, company: "Google", question: "Improve Coffee Machine? What is the stickiness of Coffee Machine? After the design, what would you say to Nespresso CEO in the lift in 2 mins?", type: "Product Design", format: "On-Site", tags: ["design", "hardware", "improvement"] },
-  { id: 53, company: "Google", question: "What should google do post-covid for Small and Medium businesses? How will I measure success for wellness tool for SMB employees?", type: "Strategy", format: "On-Site", tags: ["strategy", "SMB", "post-covid"] },
-  { id: 54, company: "Google", question: "Google Chrome browser downloads in Android mobile has gone down. How would you find the root cause?", type: "Execution", format: "First Round", tags: ["metric drop", "diagnosis", "mobile"] },
-  { id: 55, company: "Google", question: "If you're an Instagram Shop PM, what metric would you set as North Star?", type: "Analytical", format: "First Round", tags: ["metrics", "north star", "instagram"] },
-  { id: 56, company: "Google", question: "Describe a time when you used data to influence a decision.", type: "Behavioral", format: "First Round", tags: ["behavioral", "data", "influence"] },
-  { id: 57, company: "Google", question: "Estimate the number of wasted meeting hours in the US.", type: "Estimation", format: "First Round", tags: ["estimation", "productivity", "market size"] },
-  { id: 58, company: "Google", question: "Give me three of your favorite tech products apps/devices. Imagine you're the PM of product. How would you improve it for the next 1-2 years?", type: "Product Design", format: "First Round", tags: ["improvement", "design", "roadmap"] },
-  { id: 59, company: "Google", question: "PM at Camera company, we now have new features with facial recognition. Buildings already have cameras installed for live stream for security. What should the accuracy of the algorithm be for roll out as the sole source of verification to enter buildings?", type: "Analytical", format: "On-Site", tags: ["AI", "accuracy", "tradeoff"] },
-  { id: 60, company: "Google", question: "You are a Google Search PM, an engineer has been tinkering with algo for snippets. An engineer believes it's a better algorithm. How would you evaluate that to put into production?", type: "Execution", format: "First Round", tags: ["experimentation", "A/B test", "search"] },
-
-  // ── AMAZON ───────────────────────────────────────────────────────
-  { id: 61, company: "Amazon", question: "What's the most interesting/impactful project you have done?", type: "Behavioral", format: "First Round", tags: ["behavioral", "impact", "project"] },
-  { id: 62, company: "Amazon", question: "Tell me of a time when you had to deep dive and dig data to solve a problem.", type: "Behavioral", format: "First Round", tags: ["behavioral", "data", "problem solving"] },
-  { id: 63, company: "Amazon", question: "Tell me of a time when a technical decision you took fell apart.", type: "Behavioral", format: "First Round", tags: ["behavioral", "failure", "technical"] },
-  { id: 64, company: "Amazon", question: "Tell me of a time when you received harsh feedback. How did you react.", type: "Behavioral", format: "First Round", tags: ["behavioral", "feedback", "growth"] },
-  { id: 65, company: "Amazon", question: "System Design for a Alexa enabled treadmill.", type: "System Design", format: "First Round", tags: ["system design", "IoT", "hardware"] },
-  { id: 66, company: "Amazon", question: "Design a product to find doctors for people who are moving to a new city; assume you are a brand new startup.", type: "Product Sense", format: "First Round", tags: ["health", "design", "startup"] },
-  { id: 67, company: "Amazon", question: "Tell me about a problem you solved in a novel way. What was the issue and what was the outcome?", type: "Behavioral", format: "First Round", tags: ["behavioral", "innovation", "problem solving"] },
-  { id: 68, company: "Amazon", question: "Tell me about a system design that you got involved in any your past jobs.", type: "System Design", format: "On-Site", tags: ["system design", "experience", "technical"] },
-
-  // ── MICROSOFT ────────────────────────────────────────────────────
-  { id: 69, company: "Microsoft", question: "Design an Uber app for people with disabilities.", type: "Product Design", format: "Video", tags: ["accessibility", "design", "inclusive"] },
-  { id: 70, company: "Microsoft", question: "How would you increase revenue of MS PowerPoint?", type: "Product Sense", format: "Video", tags: ["monetization", "B2B", "Office"] },
-  { id: 71, company: "Microsoft", question: "Strategy for MS Office.", type: "Strategy", format: "Phone", tags: ["strategy", "B2B", "Office"] },
-  { id: 72, company: "Microsoft", question: "What is your favorite game? What feature would you create for this game? What metrics would you look at to determine if this is worth while - before a single engineering dollar spent?", type: "Product Sense", format: "Phone", tags: ["gaming", "metrics", "feature"] },
-  { id: 73, company: "Microsoft", question: "Create a home automation remote control and tell me about it.", type: "Product Sense", format: "Other", tags: ["design", "IoT", "hardware"] },
-
-  // ── UBER ─────────────────────────────────────────────────────────
-  { id: 74, company: "Uber", question: "If you were a PM at Uber, how would you decide whether to switch from the driver model to the self-driving cars model?", type: "Strategy", format: "First Round", tags: ["strategy", "autonomous", "decision"] },
-  { id: 75, company: "Uber", question: "How to reduce driver canceling.", type: "Execution", format: "First Round", tags: ["supply", "retention", "driver"] },
-  { id: 76, company: "Uber", question: "What goals would you set for Uber Green.", type: "Execution", format: "First Round", tags: ["metrics", "sustainability", "goals"] },
-  { id: 77, company: "Uber", question: "How would you build a system to estimate the ETA of an Uber driver?", type: "System Design", format: "On-Site", tags: ["system design", "ETA", "maps"] },
-  { id: 78, company: "Uber", question: "Build a system that matches available Uber drivers with riders.", type: "System Design", format: "On-Site", tags: ["system design", "matching", "marketplace"] },
-  { id: 79, company: "Uber", question: "Design a kids ride-on feature for Uber.", type: "Product Design", format: "First Round", tags: ["design", "kids", "safety", "accessibility"] },
-
-  // ── DOORDASH ─────────────────────────────────────────────────────
-  { id: 80, company: "Doordash", question: "How would you improve the worst post-booking experience on Opentable?", type: "Product Sense", format: "First Round", tags: ["improvement", "restaurant", "UX"] },
-  { id: 81, company: "Doordash", question: "Which app have you used for finding an apartment? How would you improve it?", type: "Product Design", format: "First Round", tags: ["improvement", "real estate", "UX"] },
-  { id: 82, company: "Doordash", question: "Improve the post booking experience of Ticketmaster.", type: "Product Sense", format: "First Round", tags: ["improvement", "events", "UX"] },
-  { id: 83, company: "Doordash", question: "If you were a PM at X, and you want to launch X, how would you make the case that X is worth launching? If it's approved, how would you price the X?", type: "Analytical", format: "First Round", tags: ["pricing", "launch", "strategy"] },
-
-  // ── STRIPE ───────────────────────────────────────────────────────
-  { id: 84, company: "Stripe", question: "Assume you're a PM on Google Maps and want to integrate with DoorDash to allow users to order delivery. Design the API.", type: "System Design", format: "On-Site", tags: ["API", "integration", "system design"] },
-  { id: 85, company: "Stripe", question: "Stripe Checkout - merchants are complaining that by requiring billing details we are adding friction and hurting conversion. What would you do?", type: "Execution", format: "On-Site", tags: ["conversion", "UX", "tradeoff"] },
-  { id: 86, company: "Stripe", question: "You're the PM responsible for reactions at Facebook. How would I launch? Who would I talk to?", type: "Execution", format: "On-Site", tags: ["launch", "social", "stakeholders"] },
-
-  // ── LINKEDIN ─────────────────────────────────────────────────────
-  { id: 87, company: "LinkedIn", question: "Few years ago Facebook used to restrict user signups with .edu emails only. Why did they remove that restriction and what were the pros & cons of doing so?", type: "Strategy", format: "In-Person", tags: ["strategy", "growth", "decision"] },
-  { id: 88, company: "LinkedIn", question: "What feature would you include in LinkedIn to increase its revenue?", type: "Product Sense", format: "Phone", tags: ["monetization", "feature", "B2B"] },
-
-  // ── COINBASE ─────────────────────────────────────────────────────
-  { id: 89, company: "Coinbase", question: "If you are a PM at Spotify, how would you grow Spotify by 20%?", type: "Strategy", format: "First Round", tags: ["growth", "music", "strategy"] },
-  { id: 90, company: "Coinbase", question: "Pick any Fintech product, talk about business goal, and build metrics.", type: "Execution", format: "First Round", tags: ["metrics", "fintech", "goals"] },
-  { id: 91, company: "Coinbase", question: "Should Coinbase be in the NFT space and if so in what capacity?", type: "Strategy", format: "First Round", tags: ["strategy", "crypto", "NFT"] },
-
-  // ── SHOPIFY ──────────────────────────────────────────────────────
-  { id: 92, company: "Shopify", question: "Shopify realized it's difficult to build all the features to meet all of their users needs and made a decision to open up its platform allowing 3rd party developers to build apps for its users. Your product team is working on building the Shopify App Store that allows merchants to discover and install apps that can help them grow their businesses. What are the goals and success metrics of the app marketplace? Now that the Shopify App Store has been running for a year, the overall app installation and usage rate have stagnated. How would you go about growing the product?", type: "Product Sense", format: "First Round", tags: ["marketplace", "growth", "metrics"] },
-
-  // ── INSTACART / DOORDASH ─────────────────────────────────────────
-  { id: 93, company: "Instacart", question: "Design Safeway if their sales are declining in areas with Instacart and Bluepapron.", type: "Product Sense", format: "First Round", tags: ["strategy", "grocery", "competitive"] },
-
-  // ── WALMART ──────────────────────────────────────────────────────
-  { id: 94, company: "Walmart", question: "You're a PM at DoorDash, what feature will you improve? What KPI will you identify for success? After 3 months of that feature change, the KPI stays flat, what will you do?", type: "Product Sense", format: "First Round", tags: ["improvement", "metrics", "diagnosis"] },
-  { id: 95, company: "Walmart", question: "Make a product to help people buy/sell a home.", type: "Product Sense", format: "First Round", tags: ["design", "real estate", "marketplace"] },
-
-  // ── NETFLIX ──────────────────────────────────────────────────────
-  { id: 96, company: "Netflix", question: "You're an experienced PM at Netflix. 6 months ago, launched Netflix Podcasts. What's the rationale, how to set goals, and how to measure success.", type: "Analytical", format: "On-Site", tags: ["metrics", "launch", "podcasts"] },
-  { id: 97, company: "Netflix", question: "Goals for Netflix podcast.", type: "Analytical", format: "First Round", tags: ["metrics", "goals", "podcasts"] },
-
-  // ── DROPBOX ──────────────────────────────────────────────────────
-  { id: 98, company: "Dropbox", question: "How do you improve Slack?", type: "Product Sense", format: "Phone", tags: ["improvement", "B2B", "collaboration"] },
-
-  // ── ZYNGA ────────────────────────────────────────────────────────
-  { id: 99, company: "Zynga", question: "What is your favorite game? What feature would you create for this game? What metrics would you look at to determine if this is worth while - before a single engineering dollar spent?", type: "Product Sense", format: "Phone", tags: ["gaming", "feature", "metrics"] },
-
-  // ── ADOBE ────────────────────────────────────────────────────────
-  { id: 100, company: "Adobe", question: "Strategy for MS Office.", type: "Strategy", format: "Phone", tags: ["strategy", "B2B", "competitive"] },
-
-  // ── SWIGGY / INDIA FOOD TECH ─────────────────────────────────────
-  { id: 101, company: "Other", question: "Design a Food delivery app for Kids.", type: "Product Sense", format: "First Round", tags: ["design", "kids", "food delivery"] },
-  { id: 102, company: "Other", question: "Design an emergency system for leveraging Amazon Alexa.", type: "Product Sense", format: "On-Site", tags: ["design", "voice", "safety"] },
-
-  // ── DOCUSIGN ─────────────────────────────────────────────────────
-  { id: 103, company: "Other", question: "Design a phone for children.", type: "Product Design", format: "First Round", tags: ["design", "kids", "hardware"] },
-
-  // ── CISCO MERAKI ─────────────────────────────────────────────────
-  { id: 104, company: "Other", question: "How to approach designing cloud architecture/tech stack of a Nest security camera?", type: "System Design", format: "Video", tags: ["system design", "IoT", "cloud"] },
-
-  // ── REDFIN ───────────────────────────────────────────────────────
-  { id: 105, company: "Other", question: "How do you measure success of the Hot Home feature in Redfin?", type: "Execution", format: "In-Person", tags: ["metrics", "real estate", "feature"] },
-
-  // ── SCRIBD ───────────────────────────────────────────────────────
-  { id: 106, company: "Other", question: "What is your proudest moment as a product manager?", type: "Behavioral", format: "In-Person", tags: ["behavioral", "leadership", "impact"] },
-
-  // ── PARK+ ────────────────────────────────────────────────────────
-  { id: 107, company: "Other", question: "What feature would you include in LinkedIn to increase its revenue?", type: "Product Sense", format: "Phone", tags: ["monetization", "B2B", "feature"] },
-
-  // ── YAHOO ────────────────────────────────────────────────────────
-  { id: 108, company: "Other", question: "Improve YouTube monetization / Improve getting to airport experience / Design a grocery shopping app.", type: "Product Sense", format: "First Round", tags: ["monetization", "improvement", "design"] },
-
-  // ── AFFIRM ───────────────────────────────────────────────────────
-  { id: 109, company: "Other", question: "Design a product to find doctors for people who are moving to a new city; assume you are a brand new startup.", type: "Product Sense", format: "First Round", tags: ["health", "design", "startup"] },
-
-  // ── GRAMMARLY ────────────────────────────────────────────────────
-  { id: 110, company: "Other", question: "The CEO wants you to develop a new 'lists' feature in Slack. How would you build it?", type: "Product Sense", format: "First Round", tags: ["design", "B2B", "feature"] },
-
-  // ── GOOGLE CLOUD ─────────────────────────────────────────────────
-  { id: 111, company: "Google", question: "Calculate the Productive hours lost due to traffic congestion each year in your city.", type: "Estimation", format: "First Round", tags: ["estimation", "transportation", "productivity"] },
-  { id: 112, company: "Google", question: "Give me three of your favorite tech products apps/devices. Imagine you're the PM of product. How would you improve it for the next 1-2 years?", type: "Product Design", format: "First Round", tags: ["improvement", "roadmap", "design"] },
-
-  // ── MUTEFLY ──────────────────────────────────────────────────────
-  { id: 113, company: "Other", question: "I'm the founder. 1. Project people thought was difficult but you delivered. 2. Difficult work relationship. 3. Failed Product. 4. Weakness.", type: "Behavioral", format: "Other", tags: ["behavioral", "leadership", "failure"] },
-
-  // ── ADDITIONAL CLASSIC PRODUCT SENSE QUESTIONS ───────────────────
-  { id: 114, company: "Other", question: "Imagine you own a wildly successful food truck, and you want to scale it up. How would you do it?", type: "Strategy", format: "Phone", tags: ["strategy", "scaling", "growth"] },
-  { id: 115, company: "Other", question: "Imagine you were PM for buyer seller market-place: what would be the key metric you studied, how would you diagnose a drop. If engineering brought a solution to you how would you decide whether or not to prioritize working on it.", type: "Execution", format: "In-Person", tags: ["metrics", "marketplace", "prioritization"] },
-  { id: 116, company: "Other", question: "Pick an non-technical product you use. Why do you like it and why don't you like it? How will you improve it.", type: "Product Sense", format: "Other", tags: ["improvement", "design", "UX"] },
-  { id: 117, company: "Other", question: "How would you design a Time Machine?", type: "Product Sense", format: "First Round", tags: ["design", "creative", "0-to-1"] },
-  { id: 118, company: "Other", question: "Design an app for the DMV.", type: "Product Sense", format: "First Round", tags: ["design", "government", "UX"] },
-  { id: 119, company: "Other", question: "Work for Toaster company, premium technologically advanced toaster, 8 slices in 20 seconds, 500$. Sales mostly via retail, very limited online presence. New competition same features half the price they have mainly online sales. What would you do?", type: "Strategy", format: "First Round", tags: ["strategy", "competitive", "pricing"] },
-  { id: 120, company: "Other", question: "How would you design a fire alarm for deaf people?", type: "Product Design", format: "First Round", tags: ["accessibility", "design", "inclusive"] },
-  { id: 121, company: "Other", question: "Design an ATM for blind users.", type: "Product Design", format: "First Round", tags: ["accessibility", "design", "inclusive"] },
-  { id: 122, company: "Other", question: "Design a product for the elderly to use smartphones more easily.", type: "Product Design", format: "First Round", tags: ["accessibility", "design", "elderly"] },
-  { id: 123, company: "Other", question: "How would you measure success for a new feature you just launched?", type: "Execution", format: "First Round", tags: ["metrics", "launch", "success"] },
-  { id: 124, company: "Other", question: "How would you prioritize a list of 10 features for the next quarter?", type: "Execution", format: "First Round", tags: ["prioritization", "roadmap", "tradeoff"] },
-  { id: 125, company: "Other", question: "Your north star metric dropped 20% overnight. Walk me through how you'd diagnose this.", type: "Execution", format: "First Round", tags: ["metric drop", "diagnosis", "north star"] },
-
-  // ── META BEHAVIORAL ──────────────────────────────────────────────
-  { id: 126, company: "Meta / Facebook", question: "Tell me a time 1. you delivered on a product you didn't sign up for, 2. disagreed with a colleague and your stance was NOT proved right, 3. you delivered something with resource constraints.", type: "Leadership & Drive", format: "On-Site", tags: ["behavioral", "leadership", "constraints"] },
-  { id: 127, company: "Meta / Facebook", question: "Tell me a time when you had a 1. difficult working relationship, 2. product you delivered that failed, 3. challenging time obtaining support from others, 4. harsh feedback from peer or manager.", type: "Leadership & Drive", format: "On-Site", tags: ["behavioral", "leadership", "failure"] },
-  { id: 128, company: "Meta / Facebook", question: "You are the PM for Facebook app. Design a product for music.", type: "Product Sense", format: "First Round", tags: ["design", "music", "social"] },
-  { id: 129, company: "Meta / Facebook", question: "Pretend Verified is a New Product Launch. How would you go about defining success?", type: "Analytical", format: "First Round", tags: ["launch", "metrics", "verification"] },
-
-  // ── ADDITIONAL GOOGLE ─────────────────────────────────────────────
-  { id: 130, company: "Google", question: "1) Why would you buy the shoes with kinetic energy of 5X? 2) Career Failure story. 3) Success metrics for google photos. 4) Should google translate add elearning option on the menu or not?", type: "Product Design", format: "First Round", tags: ["metrics", "behavioral", "design"] },
-  { id: 131, company: "Google", question: "PM at Apple/Google - Build a product around parking.", type: "Product Sense", format: "On-Site", tags: ["design", "transportation", "maps"] },
-  { id: 132, company: "Google", question: "Define Goals and Success Metrics for FB Groups focused on buying/selling (assume fb marketplace does not exist).", type: "Analytical", format: "First Round", tags: ["metrics", "marketplace", "goals"] },
-  { id: 133, company: "Google", question: "What would you build as a neighborhood product for Facebook?", type: "Product Sense", format: "First Round", tags: ["design", "social", "local"] },
-  { id: 134, company: "Google", question: "You're an experienced PM at Netflix. 6 months ago, launched Netflix Podcasts. What's the rationale, how to set goals, and how to measure success.", type: "Analytical", format: "On-Site", tags: ["metrics", "launch", "strategy"] },
-  { id: 135, company: "Google", question: "Design a parking solution for Google / Apple maps.", type: "Product Sense", format: "First Round", tags: ["design", "maps", "transportation"] },
-
-  // ── ADDITIONAL BEHAVIORAL ─────────────────────────────────────────
-  { id: 136, company: "Other", question: "Tell me about a time you navigated a challenging work relationship. Tell me about a time you gave difficult/constructive feedback to someone. Tell me about a time you learned something from your colleague. Tell me about a product failure. Tell me about an area of weakness you are working on.", type: "Leadership & Drive", format: "On-Site", tags: ["behavioral", "leadership", "feedback"] },
-  { id: 137, company: "Other", question: "A critical feedback you received.", type: "Behavioral", format: "First Round", tags: ["behavioral", "feedback", "growth"] },
-  { id: 138, company: "Other", question: "Tell me a challenging product that you are proud of. Tell me a time you received a critical feedback. Follow-up, any other thing you are currently working on to improve? Tell me a time you had cross-functional challenges. Tell me how your product failed.", type: "Leadership & Drive", format: "On-Site", tags: ["behavioral", "leadership", "failure"] },
-
-  // ── ADDITIONAL ESTIMATION ─────────────────────────────────────────
-  { id: 139, company: "Other", question: "Estimate the number of piano tuners in Chicago.", type: "Estimation", format: "Phone", tags: ["estimation", "market size", "classic"] },
-  { id: 140, company: "Other", question: "How many gas stations are in the US?", type: "Estimation", format: "Phone", tags: ["estimation", "market size"] },
-  { id: 141, company: "Other", question: "Estimate the market size for electric vehicles in 2030.", type: "Estimation", format: "First Round", tags: ["estimation", "market size", "EV"] },
-
-  // ── ADDITIONAL STRATEGY ───────────────────────────────────────────
-  { id: 142, company: "Other", question: "Should Uber enter the grocery delivery market?", type: "Strategy", format: "First Round", tags: ["strategy", "expansion", "marketplace"] },
-  { id: 143, company: "Other", question: "How would you decide whether to launch a new product in India vs. Brazil?", type: "Strategy", format: "First Round", tags: ["strategy", "international", "expansion"] },
-  { id: 144, company: "Other", question: "What would you do if your top competitor launched a feature that directly copies yours?", type: "Strategy", format: "First Round", tags: ["strategy", "competitive", "response"] },
-  { id: 145, company: "Other", question: "How would you build a moat for a social networking product?", type: "Strategy", format: "First Round", tags: ["strategy", "moat", "social"] },
-
-  // ── ADDITIONAL EXECUTION ──────────────────────────────────────────
-  { id: 146, company: "Other", question: "DAU dropped 20% last week. Walk me through your investigation.", type: "Execution", format: "First Round", tags: ["metric drop", "diagnosis", "DAU"] },
-  { id: 147, company: "Other", question: "How would you run an A/B test for a new onboarding flow?", type: "Execution", format: "First Round", tags: ["experimentation", "A/B test", "onboarding"] },
-  { id: 148, company: "Other", question: "You have 3 engineers for 3 months. What would you build?", type: "Execution", format: "First Round", tags: ["prioritization", "constraints", "roadmap"] },
-  { id: 149, company: "Other", question: "How would you improve user retention for a subscription app?", type: "Execution", format: "First Round", tags: ["retention", "subscription", "improvement"] },
-
-  // ── ADDITIONAL ANALYTICAL ─────────────────────────────────────────
-  { id: 150, company: "Other", question: "What is the North Star metric for Airbnb? Why?", type: "Analytical", format: "First Round", tags: ["north star", "metrics", "marketplace"] },
-  { id: 151, company: "Other", question: "How would you measure the success of Instagram Reels?", type: "Analytical", format: "First Round", tags: ["metrics", "video", "social"] },
-  { id: 152, company: "Other", question: "What metrics would you use to evaluate the health of a two-sided marketplace?", type: "Analytical", format: "First Round", tags: ["metrics", "marketplace", "health"] },
-  { id: 153, company: "Other", question: "How would you set up a dashboard to monitor a newly launched feature?", type: "Analytical", format: "First Round", tags: ["metrics", "monitoring", "launch"] },
-
-  // ── ADDITIONAL PRODUCT DESIGN ─────────────────────────────────────
-  { id: 154, company: "Other", question: "Design a product for remote workers who feel isolated.", type: "Product Design", format: "First Round", tags: ["design", "remote work", "social"] },
-  { id: 155, company: "Other", question: "Design a navigation app for visually impaired users.", type: "Product Design", format: "First Round", tags: ["accessibility", "design", "maps"] },
-  { id: 156, company: "Other", question: "Design a product to help seniors stay connected with family.", type: "Product Design", format: "First Round", tags: ["design", "elderly", "social"] },
-  { id: 157, company: "Other", question: "Design a product that helps people learn a new language in 15 minutes a day.", type: "Product Design", format: "First Round", tags: ["design", "education", "habit"] },
-  { id: 158, company: "Other", question: "Design a feature for Spotify that helps users discover new music.", type: "Product Design", format: "First Round", tags: ["design", "music", "discovery"] },
-  { id: 159, company: "Other", question: "Design a product for parents to manage their kids' screen time.", type: "Product Design", format: "First Round", tags: ["design", "kids", "parenting"] },
-  { id: 160, company: "Other", question: "How would you redesign the airport experience?", type: "Product Design", format: "First Round", tags: ["design", "travel", "UX"] },
-
-  // ── ADDITIONAL META ───────────────────────────────────────────────
-  { id: 161, company: "Meta / Facebook", question: "How would you grow WhatsApp's DAU by 20%?", type: "Strategy", format: "First Round", tags: ["growth", "messaging", "DAU"] },
-  { id: 162, company: "Meta / Facebook", question: "Design a product for Meta's metaverse that drives daily active usage.", type: "Product Sense", format: "First Round", tags: ["metaverse", "design", "engagement"] },
-  { id: 163, company: "Meta / Facebook", question: "How would you improve Instagram's algorithm to show more relevant content?", type: "Product Sense", format: "First Round", tags: ["algorithm", "feed", "relevance"] },
-  { id: 164, company: "Meta / Facebook", question: "Facebook Marketplace GMV is declining. What would you do?", type: "Execution", format: "On-Site", tags: ["metric drop", "marketplace", "diagnosis"] },
-  { id: 165, company: "Meta / Facebook", question: "Design a product for Meta to enter the healthcare space.", type: "Product Sense", format: "First Round", tags: ["health", "design", "expansion"] },
-
-  // ── ADDITIONAL GOOGLE ─────────────────────────────────────────────
-  { id: 166, company: "Google", question: "How would you improve Google Maps for cyclists?", type: "Product Sense", format: "First Round", tags: ["improvement", "maps", "transportation"] },
-  { id: 167, company: "Google", question: "Design a product to help people find trustworthy local services (plumbers, electricians).", type: "Product Sense", format: "First Round", tags: ["design", "local", "trust"] },
-  { id: 168, company: "Google", question: "Google Assistant usage is declining. What would you do?", type: "Execution", format: "First Round", tags: ["metric drop", "voice", "diagnosis"] },
-  { id: 169, company: "Google", question: "How would you monetize Google Maps?", type: "Strategy", format: "First Round", tags: ["monetization", "maps", "strategy"] },
-
-  // ── ADDITIONAL AMAZON ─────────────────────────────────────────────
-  { id: 170, company: "Amazon", question: "How would you improve Amazon's recommendation engine?", type: "Product Sense", format: "First Round", tags: ["improvement", "ML", "recommendations"] },
-  { id: 171, company: "Amazon", question: "Design a product for Amazon to enter the healthcare space.", type: "Product Sense", format: "First Round", tags: ["health", "design", "expansion"] },
-  { id: 172, company: "Amazon", question: "Amazon Prime membership is declining. What would you do?", type: "Execution", format: "First Round", tags: ["retention", "subscription", "diagnosis"] },
-  { id: 173, company: "Amazon", question: "How would you measure the success of Alexa?", type: "Analytical", format: "First Round", tags: ["metrics", "voice", "success"] },
-
-  // ── ADDITIONAL UBER ───────────────────────────────────────────────
-  { id: 174, company: "Uber", question: "How would you improve Uber Eats' driver retention?", type: "Execution", format: "First Round", tags: ["retention", "supply", "driver"] },
-  { id: 175, company: "Uber", question: "Design a safety feature for Uber that protects both riders and drivers.", type: "Product Design", format: "First Round", tags: ["safety", "design", "trust"] },
-  { id: 176, company: "Uber", question: "How would you grow Uber's market share in Southeast Asia?", type: "Strategy", format: "First Round", tags: ["growth", "international", "strategy"] },
-  { id: 177, company: "Uber", question: "Uber's surge pricing is causing negative press. What would you do?", type: "Strategy", format: "First Round", tags: ["pricing", "PR", "strategy"] },
-
-  // ── ADDITIONAL AIRBNB ─────────────────────────────────────────────
-  { id: 178, company: "Other", question: "How would you improve Airbnb's host onboarding experience?", type: "Product Sense", format: "First Round", tags: ["onboarding", "supply", "UX"] },
-  { id: 179, company: "Other", question: "Design a feature for Airbnb to increase trust between hosts and guests.", type: "Product Design", format: "First Round", tags: ["trust", "design", "marketplace"] },
-  { id: 180, company: "Other", question: "Airbnb's booking conversion rate dropped 15%. What would you investigate?", type: "Execution", format: "First Round", tags: ["conversion", "metric drop", "diagnosis"] },
-
-  // ── ADDITIONAL LINKEDIN ───────────────────────────────────────────
-  { id: 181, company: "LinkedIn", question: "How would you improve LinkedIn's job recommendation algorithm?", type: "Product Sense", format: "First Round", tags: ["improvement", "ML", "jobs"] },
-  { id: 182, company: "LinkedIn", question: "Design a product for LinkedIn to help recent graduates find their first job.", type: "Product Design", format: "First Round", tags: ["design", "jobs", "education"] },
-  { id: 183, company: "LinkedIn", question: "LinkedIn's premium subscription growth is stagnating. What would you do?", type: "Strategy", format: "First Round", tags: ["monetization", "subscription", "growth"] },
-
-  // ── ADDITIONAL SPOTIFY ────────────────────────────────────────────
-  { id: 184, company: "Other", question: "How would you improve Spotify's podcast discovery?", type: "Product Sense", format: "First Round", tags: ["improvement", "podcasts", "discovery"] },
-  { id: 185, company: "Other", question: "Design a social feature for Spotify that connects music fans.", type: "Product Design", format: "First Round", tags: ["design", "social", "music"] },
-  { id: 186, company: "Other", question: "Spotify's free-to-premium conversion rate is declining. What would you do?", type: "Execution", format: "First Round", tags: ["conversion", "subscription", "diagnosis"] },
-
-  // ── ADDITIONAL DUOLINGO ───────────────────────────────────────────
-  { id: 187, company: "Other", question: "How would you grow Duolingo's DAU by 30%?", type: "Strategy", format: "First Round", tags: ["growth", "education", "DAU"] },
-  { id: 188, company: "Other", question: "Design a feature for Duolingo that improves long-term retention.", type: "Product Design", format: "First Round", tags: ["retention", "education", "habit"] },
-
-  // ── ADDITIONAL SLACK ──────────────────────────────────────────────
-  { id: 189, company: "Other", question: "How would you improve Slack's onboarding for new teams?", type: "Product Sense", format: "First Round", tags: ["onboarding", "B2B", "UX"] },
-  { id: 190, company: "Other", question: "Design a feature for Slack that helps remote teams feel more connected.", type: "Product Design", format: "First Round", tags: ["design", "remote work", "B2B"] },
-
-  // ── ADDITIONAL FINTECH ────────────────────────────────────────────
-  { id: 191, company: "Other", question: "Design a financial product for unbanked populations in emerging markets.", type: "Product Design", format: "First Round", tags: ["design", "fintech", "accessibility"] },
-  { id: 192, company: "Other", question: "How would you measure the success of a peer-to-peer payment feature?", type: "Analytical", format: "First Round", tags: ["metrics", "payments", "success"] },
-  { id: 193, company: "Other", question: "Design a product that helps people save money automatically.", type: "Product Design", format: "First Round", tags: ["design", "fintech", "savings"] },
-
-  // ── ADDITIONAL EDTECH ─────────────────────────────────────────────
-  { id: 194, company: "Other", question: "Design an online learning platform for K-12 students in rural areas.", type: "Product Design", format: "First Round", tags: ["design", "education", "accessibility"] },
-  { id: 195, company: "Other", question: "How would you improve Coursera's course completion rate?", type: "Product Sense", format: "First Round", tags: ["retention", "education", "improvement"] },
-
-  // ── ADDITIONAL HEALTH ─────────────────────────────────────────────
-  { id: 196, company: "Other", question: "Design a product that helps people manage chronic illness.", type: "Product Design", format: "First Round", tags: ["design", "health", "chronic"] },
-  { id: 197, company: "Other", question: "How would you measure the success of a mental health app?", type: "Analytical", format: "First Round", tags: ["metrics", "health", "mental health"] },
-
-  // ── ADDITIONAL SYSTEM DESIGN ──────────────────────────────────────
-  { id: 198, company: "Other", question: "Design a rate limiter for a high-traffic API.", type: "System Design", format: "On-Site", tags: ["system design", "API", "scale"] },
-  { id: 199, company: "Other", question: "Design a notification system that can handle 10 million users.", type: "System Design", format: "On-Site", tags: ["system design", "scale", "notifications"] },
-  { id: 200, company: "Other", question: "Design a real-time collaborative document editing system like Google Docs.", type: "System Design", format: "On-Site", tags: ["system design", "real-time", "collaboration"] },
+  // ── Aug 2025 ──────────────────────────────────────────────────────────────
+  { id: 1, date: "Aug 2025", company: "Meta", question: "Build an app for gardening.", type: "Product Sense", tags: ["0→1", "consumer", "niche"], frameworkHint: "0→1 Design Path" },
+  { id: 2, date: "Aug 2025", company: "Meta", question: "Build an app for group travel.", type: "Product Sense", tags: ["social", "travel", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 3, date: "Aug 2025", company: "Meta", question: "We're thinking about removing profile picture as a required step in the onboarding flow. How would you determine if that's a good idea or not?", type: "Analytical", tags: ["onboarding", "experimentation", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 4, date: "Aug 2025", company: "Meta", question: "You're the PM for Meta verified account. How would you measure success and set goals?", type: "Analytical", tags: ["metrics", "goals", "trust"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 5, date: "Aug 2025", company: "Meta", question: "Build a product for people who work on farms.", type: "Product Sense", tags: ["accessibility", "rural", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 6, date: "Aug 2025", company: "Meta", question: "Define success for Verified Accounts (assuming its initial phase).", type: "Analytical", tags: ["metrics", "launch", "trust"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 7, date: "Aug 2025", company: "Meta", question: "Design a parking solution for Apple Maps.", type: "Product Sense", tags: ["maps", "parking", "design"], frameworkHint: "0→1 Design Path" },
+  { id: 8, date: "Aug 2025", company: "Doordash", question: "How would you improve discoverability at AirBnB?", type: "Product Sense", tags: ["improvement", "search", "discovery"], frameworkHint: "Improve Existing Product Path" },
+  { id: 9, date: "Aug 2025", company: "Doordash", question: "Hired as a PM to 3X Revenue in the next 5 years. What is your strategy to support monetization? Which customers and what problems? What do you build as your MVP? Choose between Etsy, Yelp, and Groupon.", type: "Strategy", tags: ["monetization", "revenue", "MVP"], frameworkHint: "Strategy Path" },
+  { id: 10, date: "Aug 2025", company: "Doordash", question: "Grow revenue by 3x in 5 years. Choose any one among Yelp, Duolingo, Etsy, Groupon. How would you develop the MVP?", type: "Product Sense", tags: ["growth", "revenue", "MVP"], frameworkHint: "Growth Path" },
+  { id: 11, date: "Aug 2025", company: "Doordash", question: "How will you improve the quality of Airbnb in 6 months?", type: "Product Sense", tags: ["improvement", "quality", "Airbnb"], frameworkHint: "Improve Existing Product Path" },
+  { id: 12, date: "Aug 2025", company: "Meta", question: "You're the PM for a local grocery store chain. Sales are down because of Blue Apron and Instacart has started getting market share. What would you build?", type: "Product Sense", tags: ["competition", "strategy", "grocery"], frameworkHint: "Strategy Path" },
+  { id: 13, date: "Aug 2025", company: "Meta", question: "Why did FB build FB events, and how would you measure success for it?", type: "Analytical", tags: ["metrics", "events", "success"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 14, date: "Aug 2025", company: "Meta", question: "You are PM at meta, build a product for education. What would you build and why?", type: "Product Sense", tags: ["education", "0→1", "social"], frameworkHint: "0→1 Design Path" },
+  { id: 15, date: "Aug 2025", company: "Meta", question: "Tell me how would you measure the success of a video conference product like Zoom.", type: "Execution", tags: ["metrics", "video", "success"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 16, date: "Aug 2025", company: "Meta", question: "You are PM for a start-up. Design a product for people who work on farms.", type: "Product Sense", tags: ["startup", "rural", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 17, date: "Aug 2025", company: "Meta", question: "You are a PM in Reality Labs, you want to build a platform for experienced people, sort of shared economy.", type: "Product Sense", tags: ["AR/VR", "platform", "shared economy"], frameworkHint: "0→1 Design Path" },
+  { id: 18, date: "Aug 2025", company: "Meta", question: "Design a product for emergency at home for Meta.", type: "Product Sense", tags: ["safety", "emergency", "consumer"], frameworkHint: "0→1 Design Path" },
+  { id: 19, date: "Aug 2025", company: "Meta", question: "Design a product to find handyman.", type: "Product Sense", tags: ["marketplace", "services", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 20, date: "Aug 2025", company: "Meta", question: "PM for the Olympics - What would you build?", type: "Product Sense", tags: ["events", "sports", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 21, date: "Aug 2025", company: "Meta", question: "DMs — how would you improve them?", type: "Analytical", tags: ["messaging", "improvement", "engagement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 22, date: "Aug 2025", company: "Meta", question: "You are a PM in Reality Labs. Design a product for volunteering.", type: "Product Sense", tags: ["AR/VR", "volunteering", "social"], frameworkHint: "0→1 Design Path" },
+  { id: 23, date: "Aug 2025", company: "Meta", question: "Leadership: What has been the most challenging project? Describe a strong pushback or conflict from another team. Tell me about negative feedback you received. Tell me about a failed project. What is your biggest development area right now?", type: "Leadership & Drive", tags: ["leadership", "conflict", "growth"] },
+  // ── Jul 2025 ──────────────────────────────────────────────────────────────
+  { id: 24, date: "Jul 2025", company: "Meta", question: "Assuming you are working for Uber, design a ride sharing product for senior citizens.", type: "Product Sense", tags: ["accessibility", "senior", "ride-sharing"], frameworkHint: "Accessibility Design Path" },
+  { id: 25, date: "Jul 2025", company: "Meta", question: "Set goals and success metrics for Meta Pay.", type: "Execution", tags: ["metrics", "payments", "goals"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 26, date: "Jul 2025", company: "Meta", question: "PM at Meta; Design a product for volunteering.", type: "Product Sense", tags: ["social good", "volunteering", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 27, date: "Jul 2025", company: "Meta", question: "Goals and success metrics for Netflix podcasts.", type: "Analytical", tags: ["metrics", "audio", "Netflix"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 28, date: "Jul 2025", company: "Meta", question: "You are a PM at Zoom. Why does this product exist, what goals would you set, and how do you measure success?", type: "Analytical", tags: ["goals", "metrics", "Zoom"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 29, date: "Jul 2025", company: "Meta", question: "You are a PM for Meta, how would you define success for FB Events? Describe the product rationale, mission etc.", type: "Analytical", tags: ["events", "metrics", "rationale"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 30, date: "Jul 2025", company: "Meta", question: "You are a Meta PM, how would you build a product for home buying experience.", type: "Product Sense", tags: ["real estate", "marketplace", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 31, date: "Jul 2025", company: "Meta", question: "You are a PM at Meta. Build a product in the Jobs space.", type: "Product Sense", tags: ["jobs", "marketplace", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 32, date: "Jul 2025", company: "Stripe", question: "[Part 1] What are three products you use frequently? Let's talk about them. [Part 2] Let's build WhatsApp for Daycares.", type: "Product Sense", tags: ["product thinking", "0→1", "communication"], frameworkHint: "0→1 Design Path" },
+  { id: 33, date: "Jul 2025", company: "Meta", question: "As Olympic Committee member, what will you build for 2028 Olympics?", type: "Product Sense", tags: ["events", "sports", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 34, date: "Jul 2025", company: "Meta", question: "Meta Pay - Why, goals, Metrics.", type: "Analytical", tags: ["payments", "goals", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 35, date: "Jul 2025", company: "Meta", question: "Should Netflix launch a podcast product and how would you set goal and measure the success for it?", type: "Analytical", tags: ["audio", "launch", "metrics"], frameworkHint: "Strategy Path" },
+  { id: 36, date: "Jul 2025", company: "Meta", question: "PM for Reels. Why would Meta build it? How would you set goals? How would you measure success?", type: "Analytical", tags: ["Reels", "goals", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 37, date: "Jul 2025", company: "Meta", question: "Set success metrics and goals for Facebook Live.", type: "Analytical", tags: ["live video", "metrics", "goals"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 38, date: "Jul 2025", company: "Google", question: "What's your favorite product? How would you improve it?", type: "Product Sense", tags: ["improvement", "favorite product", "open-ended"], frameworkHint: "Improve Existing Product Path" },
+  { id: 39, date: "Jul 2025", company: "Tinder", question: "How would you use CRM or engagement tools—like notifications—to get more women on Tinder to send at least one message every week?", type: "Analytical", tags: ["engagement", "retention", "notifications"], frameworkHint: "Growth Path" },
+  { id: 40, date: "Jul 2025", company: "Tinder", question: "Imagine you're a Machine Learning PM at a gaming company like Candy Crush. An analyst notices that new user sessions drop by 40% within 4 days of signup. You're tasked with using ML to power CRM campaigns to re-engage these users. How would you approach this problem?", type: "Analytical", tags: ["ML", "retention", "churn", "CRM"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 41, date: "Jul 2025", company: "Meta", question: "As a Meta PM, design a product for users to learn a musical instrument remotely.", type: "Product Sense", tags: ["education", "music", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 42, date: "Jul 2025", company: "Meta", question: "Design a product for people to find contractors.", type: "Product Sense", tags: ["marketplace", "services", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 43, date: "Jul 2025", company: "Meta", question: "Design a product for fundraising.", type: "Product Sense", tags: ["social good", "fundraising", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 44, date: "Jul 2025", company: "Meta", question: "Imagine you are PM at Meta for scamming product. How would you define the rationale, goals, and success metrics. Should Meta invest in an anti scamming product?", type: "Analytical", tags: ["trust", "safety", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 45, date: "Jul 2025", company: "Meta", question: "You're a PM @ Uber Eats rolling out a new group ordering product. How would you measure success? Tradeoff: Your NSM is improving, but overall order ratings are decreasing. What would you do?", type: "Execution", tags: ["metrics", "launch", "tradeoffs"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 46, date: "Jul 2025", company: "Meta", question: "Design a product for group travel.", type: "Product Sense", tags: ["travel", "social", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 47, date: "Jul 2025", company: "Meta", question: "You are a PM at Meta, Success metrics for FB events. Trade off - 1x1000 ppl events vs 10x100.", type: "Analytical", tags: ["metrics", "tradeoffs", "events"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 48, date: "Jul 2025", company: "Meta", question: "You are a PM at Zoom - 1 month prior to launch - define success metrics and goals for the product.", type: "Analytical", tags: ["launch", "metrics", "Zoom"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 49, date: "Jul 2025", company: "Meta", question: "You are the PM for Google Maps, create a parking solution.", type: "Product Sense", tags: ["maps", "parking", "design"], frameworkHint: "0→1 Design Path" },
+  { id: 50, date: "Jul 2025", company: "Meta", question: "You're a PM @ Disney. What product would you build for its theme parks?", type: "Product Sense", tags: ["entertainment", "theme parks", "0→1"], frameworkHint: "0→1 Design Path" },
+  // ── Jun 2025 ──────────────────────────────────────────────────────────────
+  { id: 51, date: "Jun 2025", company: "Meta", question: "Design a product for farming.", type: "Product Sense", tags: ["agriculture", "rural", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 52, date: "Jun 2025", company: "Meta", question: "You are a PM for Reels at Meta. Discuss if Meta should build Reels out, and define success metrics for the product.", type: "Analytical", tags: ["Reels", "strategy", "metrics"], frameworkHint: "Strategy Path" },
+  { id: 53, date: "Jun 2025", company: "Meta", question: "Design a parking solution for Apple Maps.", type: "Product Sense", tags: ["maps", "parking", "design"], frameworkHint: "0→1 Design Path" },
+  { id: 54, date: "Jun 2025", company: "Agoda", question: "You are a PM at Agoda. How much incremental revenue in USD can Agoda generate by selling ancillary services (spa, transportation, meals) to hotel guests?", type: "Estimation", tags: ["revenue", "estimation", "marketplace"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 55, date: "Jun 2025", company: "Google", question: "Design a product to help travelers at airports. How would you go about building it?", type: "Product Sense", tags: ["travel", "airports", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 56, date: "Jun 2025", company: "Google", question: "Name your top three favorite products, select one, and outline a plan to scale it by 10x.", type: "Strategy", tags: ["growth", "scale", "favorite product"], frameworkHint: "Growth Path" },
+  { id: 57, date: "Jun 2025", company: "Google", question: "How would you price YouTube Premium?", type: "Pricing", tags: ["pricing", "YouTube", "monetization"], frameworkHint: "Strategy Path" },
+  { id: 58, date: "Jun 2025", company: "Meta", question: "Design a product for art.", type: "Product Sense", tags: ["creative", "art", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 59, date: "Jun 2025", company: "Meta", question: "You're a PM for verified (the blue check mark). Define goals and success for the product.", type: "Execution", tags: ["verification", "goals", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 60, date: "Jun 2025", company: "Meta", question: "You're a PM at India. Design a product for group travel.", type: "Product Sense", tags: ["travel", "India", "social"], frameworkHint: "0→1 Design Path" },
+  { id: 61, date: "Jun 2025", company: "Meta", question: "Define goals and success metrics for Reels.", type: "Analytical", tags: ["Reels", "goals", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 62, date: "Jun 2025", company: "Meta", question: "Describe the metrics for a new Netflix service for Podcasts.", type: "Analytical", tags: ["audio", "podcasts", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 63, date: "Jun 2025", company: "Meta", question: "You're the PM for Verified accounts. Why would we build this? What would we measure? Set goals.", type: "Analytical", tags: ["trust", "verification", "goals"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 64, date: "Jun 2025", company: "Meta", question: "We want to invest in a brand new area, volunteering. What would you build and why?", type: "Product Sense", tags: ["social good", "0→1", "volunteering"], frameworkHint: "0→1 Design Path" },
+  { id: 65, date: "Jun 2025", company: "Meta", question: "What are the goals and success metrics for Horizon World (AR/VR)?", type: "Analytical", tags: ["AR/VR", "Horizon", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  // ── May 2025 ──────────────────────────────────────────────────────────────
+  { id: 66, date: "May 2025", company: "Meta", question: "PM for AI chatbot in Instagram DM. Follow-up: your NSM is going up or down, what do you do?", type: "Analytical", tags: ["AI", "chatbot", "NSM", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 67, date: "May 2025", company: "Meta", question: "Build a parking solution for Google Maps.", type: "Product Sense", tags: ["maps", "parking", "design"], frameworkHint: "0→1 Design Path" },
+  { id: 68, date: "May 2025", company: "Stripe", question: "Tell about your 3 favorite products and why? Design Spotify for restaurants.", type: "Product Sense", tags: ["product thinking", "music", "restaurants"], frameworkHint: "0→1 Design Path" },
+  { id: 69, date: "May 2025", company: "Meta", question: "You are the PM for Reels. Why should we build this? What goals would you set? How would you measure success? How would you evaluate the trade off if time on Reels is going up and time on feed is going down?", type: "Analytical", tags: ["Reels", "tradeoffs", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 70, date: "May 2025", company: "Meta", question: "You are the PM at a startup with access to Satellite Imagery. What would you build and why?", type: "Product Sense", tags: ["startup", "satellite", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 71, date: "May 2025", company: "Meta", question: "Set goals and measure success for FB events.", type: "Analytical", tags: ["events", "goals", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 72, date: "May 2025", company: "Meta", question: "Design a product to help people find contractors.", type: "Product Sense", tags: ["marketplace", "services", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 73, date: "May 2025", company: "Meta", question: "You're a PM for Uber/Lyft. Design a rideshare app for senior citizens.", type: "Product Sense", tags: ["accessibility", "senior", "ride-sharing"], frameworkHint: "Accessibility Design Path" },
+  { id: 74, date: "May 2025", company: "Meta", question: "You're a PM at Netflix for the homepage experience. How would you measure success for the Netflix homepage?", type: "Analytical", tags: ["Netflix", "homepage", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 75, date: "May 2025", company: "Meta", question: "PM for Zoom. Why does the product exist, what are success metrics and goals you would set.", type: "Analytical", tags: ["Zoom", "goals", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 76, date: "May 2025", company: "Meta", question: "PM for AI chatbot in Instagram DM.", type: "Product Sense", tags: ["AI", "chatbot", "Instagram"], frameworkHint: "0→1 Design Path" },
+  { id: 77, date: "May 2025", company: "Meta", question: "PM for Google Maps, design a parking solution.", type: "Product Sense", tags: ["maps", "parking", "design"], frameworkHint: "0→1 Design Path" },
+  { id: 78, date: "May 2025", company: "Genentech", question: "Design a content management solution for Medical Affairs.", type: "Product Sense", tags: ["healthcare", "B2B", "content"], frameworkHint: "0→1 Design Path" },
+  // ── Apr 2025 ──────────────────────────────────────────────────────────────
+  { id: 79, date: "Apr 2025", company: "Meta", question: "You are the PM for Reels. Why should we build this? What goals would you set? How would you measure success?", type: "Analytical", tags: ["Reels", "goals", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 80, date: "Apr 2025", company: "Meta", question: "Design a product that helps connect local communities.", type: "Product Sense", tags: ["community", "social", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 81, date: "Apr 2025", company: "Meta", question: "How would you improve Facebook Groups for professional networking?", type: "Product Sense", tags: ["Groups", "professional", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 82, date: "Apr 2025", company: "Google", question: "How would you improve Google Search for non-English speakers?", type: "Product Sense", tags: ["search", "localization", "accessibility"], frameworkHint: "Improve Existing Product Path" },
+  { id: 83, date: "Apr 2025", company: "Google", question: "Design a product to help people manage their digital well-being.", type: "Product Sense", tags: ["well-being", "consumer", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 84, date: "Apr 2025", company: "Google", question: "How would you measure the success of Google Assistant?", type: "Analytical", tags: ["AI", "assistant", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 85, date: "Apr 2025", company: "Airbnb", question: "How would you improve the host onboarding experience on Airbnb?", type: "Product Sense", tags: ["onboarding", "host", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 86, date: "Apr 2025", company: "Airbnb", question: "Design a product to help Airbnb hosts increase their earnings.", type: "Product Sense", tags: ["marketplace", "host", "monetization"], frameworkHint: "0→1 Design Path" },
+  { id: 87, date: "Apr 2025", company: "Uber", question: "How would you improve Uber's driver retention?", type: "Strategy", tags: ["retention", "driver", "supply"], frameworkHint: "Growth Path" },
+  { id: 88, date: "Apr 2025", company: "Uber", question: "Design a safety feature for Uber riders traveling alone at night.", type: "Product Sense", tags: ["safety", "trust", "accessibility"], frameworkHint: "Accessibility Design Path" },
+  { id: 89, date: "Apr 2025", company: "Netflix", question: "How would you measure the success of Netflix's recommendation algorithm?", type: "Analytical", tags: ["recommendations", "ML", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 90, date: "Apr 2025", company: "Netflix", question: "Should Netflix expand into live sports streaming? How would you evaluate this?", type: "Strategy", tags: ["sports", "expansion", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 91, date: "Apr 2025", company: "Spotify", question: "How would you grow Spotify's podcast listener base?", type: "Strategy", tags: ["podcasts", "growth", "audio"], frameworkHint: "Growth Path" },
+  { id: 92, date: "Apr 2025", company: "Spotify", question: "Design a social listening feature for Spotify.", type: "Product Sense", tags: ["social", "music", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 93, date: "Apr 2025", company: "LinkedIn", question: "How would you improve LinkedIn's job recommendation feature?", type: "Product Sense", tags: ["jobs", "recommendations", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 94, date: "Apr 2025", company: "LinkedIn", question: "Design a product to help recent graduates find their first job.", type: "Product Sense", tags: ["jobs", "education", "0→1"], frameworkHint: "0→1 Design Path" },
+  // ── Mar 2025 ──────────────────────────────────────────────────────────────
+  { id: 95, date: "Mar 2025", company: "Meta", question: "How would you improve Instagram's Explore page?", type: "Product Sense", tags: ["Instagram", "discovery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 96, date: "Mar 2025", company: "Meta", question: "Design a product to help people manage their mental health using WhatsApp.", type: "Product Sense", tags: ["mental health", "WhatsApp", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 97, date: "Mar 2025", company: "Meta", question: "You are the PM for Facebook Marketplace. How would you grow GMV by 20% in the next year?", type: "Strategy", tags: ["marketplace", "growth", "GMV"], frameworkHint: "Growth Path" },
+  { id: 98, date: "Mar 2025", company: "Google", question: "How would you improve Google Maps for cyclists?", type: "Product Sense", tags: ["maps", "cycling", "accessibility"], frameworkHint: "Improve Existing Product Path" },
+  { id: 99, date: "Mar 2025", company: "Google", question: "Design a product to help small businesses manage their online presence.", type: "Product Sense", tags: ["SMB", "B2B", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 100, date: "Mar 2025", company: "Amazon", question: "How would you improve Amazon's return experience?", type: "Product Sense", tags: ["e-commerce", "returns", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 101, date: "Mar 2025", company: "Amazon", question: "Design a product to help Amazon sellers grow their business.", type: "Product Sense", tags: ["marketplace", "sellers", "B2B"], frameworkHint: "0→1 Design Path" },
+  { id: 102, date: "Mar 2025", company: "Amazon", question: "How would you measure the success of Amazon Prime Video?", type: "Analytical", tags: ["streaming", "Prime", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 103, date: "Mar 2025", company: "Stripe", question: "How would you improve Stripe's onboarding for new merchants?", type: "Product Sense", tags: ["onboarding", "B2B", "fintech"], frameworkHint: "Improve Existing Product Path" },
+  { id: 104, date: "Mar 2025", company: "Stripe", question: "Design a fraud detection product for small e-commerce businesses.", type: "Product Sense", tags: ["fraud", "fintech", "SMB"], frameworkHint: "0→1 Design Path" },
+  { id: 105, date: "Mar 2025", company: "Doordash", question: "How would you improve DoorDash's delivery experience for customers?", type: "Product Sense", tags: ["delivery", "customer", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 106, date: "Mar 2025", company: "Doordash", question: "Design a product to help DoorDash reduce food waste.", type: "Product Sense", tags: ["sustainability", "food", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 107, date: "Mar 2025", company: "Doordash", question: "How would you measure the success of DoorDash's subscription program DashPass?", type: "Analytical", tags: ["subscription", "DashPass", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 108, date: "Mar 2025", company: "Lyft", question: "How would you improve Lyft's driver earnings transparency?", type: "Product Sense", tags: ["driver", "earnings", "transparency"], frameworkHint: "Improve Existing Product Path" },
+  { id: 109, date: "Mar 2025", company: "Lyft", question: "Design a carpooling product for commuters.", type: "Product Sense", tags: ["carpooling", "commute", "0→1"], frameworkHint: "0→1 Design Path" },
+  // ── Feb 2025 ──────────────────────────────────────────────────────────────
+  { id: 110, date: "Feb 2025", company: "Meta", question: "How would you improve Facebook's birthday feature?", type: "Product Sense", tags: ["social", "engagement", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 111, date: "Feb 2025", company: "Meta", question: "Design a product to help parents monitor their children's social media usage.", type: "Product Sense", tags: ["parental controls", "safety", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 112, date: "Feb 2025", company: "Meta", question: "How would you grow WhatsApp Business in emerging markets?", type: "Strategy", tags: ["WhatsApp", "B2B", "emerging markets"], frameworkHint: "Growth Path" },
+  { id: 113, date: "Feb 2025", company: "Google", question: "How would you improve Google Docs for remote teams?", type: "Product Sense", tags: ["collaboration", "remote", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 114, date: "Feb 2025", company: "Google", question: "Design a product to help people learn a new language using Google's AI.", type: "Product Sense", tags: ["education", "AI", "language"], frameworkHint: "0→1 Design Path" },
+  { id: 115, date: "Feb 2025", company: "Google", question: "Google Search volume dropped 15% last week. Walk me through how you'd diagnose this.", type: "Analytical", tags: ["metric drop", "diagnosis", "search"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 116, date: "Feb 2025", company: "Microsoft", question: "How would you improve Microsoft Teams for hybrid work?", type: "Product Sense", tags: ["Teams", "hybrid", "B2B"], frameworkHint: "Improve Existing Product Path" },
+  { id: 117, date: "Feb 2025", company: "Microsoft", question: "Design a product to help developers be more productive using GitHub Copilot.", type: "Product Sense", tags: ["AI", "developer tools", "productivity"], frameworkHint: "0→1 Design Path" },
+  { id: 118, date: "Feb 2025", company: "Microsoft", question: "Should Microsoft acquire TikTok? How would you evaluate this?", type: "Strategy", tags: ["M&A", "social media", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 119, date: "Feb 2025", company: "Apple", question: "How would you improve the Apple Watch health tracking experience?", type: "Product Sense", tags: ["health", "wearables", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 120, date: "Feb 2025", company: "Apple", question: "Design a new feature for the iPhone that helps users be more present.", type: "Product Sense", tags: ["well-being", "iPhone", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 121, date: "Feb 2025", company: "Apple", question: "How would you measure the success of Apple Pay?", type: "Analytical", tags: ["payments", "Apple Pay", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 122, date: "Feb 2025", company: "Uber", question: "How would you improve Uber Eats for corporate meal ordering?", type: "Product Sense", tags: ["B2B", "food delivery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 123, date: "Feb 2025", company: "Uber", question: "Design a product to help Uber drivers manage their finances.", type: "Product Sense", tags: ["driver", "fintech", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 124, date: "Feb 2025", company: "Airbnb", question: "How would you improve Airbnb's search and discovery for unique stays?", type: "Product Sense", tags: ["search", "discovery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  // ── Jan 2025 ──────────────────────────────────────────────────────────────
+  { id: 125, date: "Jan 2025", company: "Meta", question: "How would you improve Instagram Shopping?", type: "Product Sense", tags: ["e-commerce", "Instagram", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 126, date: "Jan 2025", company: "Meta", question: "Design a product to help creators monetize on Facebook.", type: "Product Sense", tags: ["creators", "monetization", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 127, date: "Jan 2025", company: "Meta", question: "How would you reduce misinformation on Facebook?", type: "Strategy", tags: ["trust", "safety", "content"], frameworkHint: "Strategy Path" },
+  { id: 128, date: "Jan 2025", company: "Google", question: "How would you improve Google Photos for families?", type: "Product Sense", tags: ["photos", "family", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 129, date: "Jan 2025", company: "Google", question: "Design a product to help people navigate public transportation more efficiently.", type: "Product Sense", tags: ["transit", "maps", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 130, date: "Jan 2025", company: "Google", question: "YouTube Watch Time dropped 10% last month. What would you investigate?", type: "Analytical", tags: ["YouTube", "metric drop", "diagnosis"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 131, date: "Jan 2025", company: "Amazon", question: "How would you improve Amazon's product recommendation engine?", type: "Product Sense", tags: ["recommendations", "ML", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 132, date: "Jan 2025", company: "Amazon", question: "Design a product to help Amazon reduce delivery carbon footprint.", type: "Product Sense", tags: ["sustainability", "delivery", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 133, date: "Jan 2025", company: "Amazon", question: "Should Amazon enter the healthcare space? How would you evaluate this?", type: "Strategy", tags: ["healthcare", "expansion", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 134, date: "Jan 2025", company: "Netflix", question: "How would you improve Netflix's content discovery for new users?", type: "Product Sense", tags: ["onboarding", "discovery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 135, date: "Jan 2025", company: "Netflix", question: "Design a product to help Netflix reduce subscriber churn.", type: "Strategy", tags: ["retention", "churn", "subscription"], frameworkHint: "Growth Path" },
+  { id: 136, date: "Jan 2025", company: "Spotify", question: "How would you improve Spotify's playlist creation experience?", type: "Product Sense", tags: ["playlists", "UX", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 137, date: "Jan 2025", company: "Spotify", question: "Design a product to help independent artists grow their audience on Spotify.", type: "Product Sense", tags: ["creators", "music", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 138, date: "Jan 2025", company: "LinkedIn", question: "How would you improve LinkedIn's content feed?", type: "Product Sense", tags: ["feed", "content", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 139, date: "Jan 2025", company: "LinkedIn", question: "Design a product to help LinkedIn users prepare for job interviews.", type: "Product Sense", tags: ["jobs", "interview prep", "0→1"], frameworkHint: "0→1 Design Path" },
+  // ── Dec 2024 ──────────────────────────────────────────────────────────────
+  { id: 140, date: "Dec 2024", company: "Meta", question: "How would you improve Facebook Events for virtual gatherings?", type: "Product Sense", tags: ["events", "virtual", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 141, date: "Dec 2024", company: "Meta", question: "Design a product to help elderly users stay connected on Facebook.", type: "Product Sense", tags: ["accessibility", "elderly", "social"], frameworkHint: "Accessibility Design Path" },
+  { id: 142, date: "Dec 2024", company: "Meta", question: "How would you grow Instagram Reels engagement among Gen Z?", type: "Strategy", tags: ["Reels", "Gen Z", "engagement"], frameworkHint: "Growth Path" },
+  { id: 143, date: "Dec 2024", company: "Google", question: "How would you improve Google Calendar for students?", type: "Product Sense", tags: ["calendar", "students", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 144, date: "Dec 2024", company: "Google", question: "Design a product to help people manage their home energy usage.", type: "Product Sense", tags: ["sustainability", "smart home", "0→1"], frameworkHint: "0→1 Design Path" },
+  { id: 145, date: "Dec 2024", company: "Google", question: "How would you measure the success of Google Workspace?", type: "Analytical", tags: ["B2B", "Workspace", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 146, date: "Dec 2024", company: "Amazon", question: "How would you improve Alexa's smart home integration?", type: "Product Sense", tags: ["Alexa", "smart home", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 147, date: "Dec 2024", company: "Amazon", question: "Design a product to help Amazon Fresh compete with local grocery stores.", type: "Product Sense", tags: ["grocery", "delivery", "competition"], frameworkHint: "Strategy Path" },
+  { id: 148, date: "Dec 2024", company: "Uber", question: "How would you improve Uber's surge pricing communication to riders?", type: "Product Sense", tags: ["pricing", "communication", "trust"], frameworkHint: "Improve Existing Product Path" },
+  { id: 149, date: "Dec 2024", company: "Uber", question: "Design a product to help Uber expand into electric vehicle rentals.", type: "Strategy", tags: ["EV", "expansion", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 150, date: "Dec 2024", company: "Airbnb", question: "How would you improve Airbnb's review system?", type: "Product Sense", tags: ["reviews", "trust", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 151, date: "Dec 2024", company: "Airbnb", question: "Design a product to help Airbnb compete with hotels for business travelers.", type: "Strategy", tags: ["B2B", "business travel", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 152, date: "Dec 2024", company: "Doordash", question: "How would you improve DoorDash's restaurant partner experience?", type: "Product Sense", tags: ["B2B", "restaurant", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 153, date: "Dec 2024", company: "Doordash", question: "Design a product to help DoorDash expand into grocery delivery.", type: "Strategy", tags: ["grocery", "expansion", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 154, date: "Dec 2024", company: "Stripe", question: "How would you improve Stripe's developer documentation?", type: "Product Sense", tags: ["developer", "documentation", "B2B"], frameworkHint: "Improve Existing Product Path" },
+  // ── Nov 2024 ──────────────────────────────────────────────────────────────
+  { id: 155, date: "Nov 2024", company: "Meta", question: "How would you improve WhatsApp for small businesses in Southeast Asia?", type: "Product Sense", tags: ["WhatsApp", "SMB", "emerging markets"], frameworkHint: "Improve Existing Product Path" },
+  { id: 156, date: "Nov 2024", company: "Meta", question: "Design a product to help Facebook users discover local events.", type: "Product Sense", tags: ["local", "events", "discovery"], frameworkHint: "0→1 Design Path" },
+  { id: 157, date: "Nov 2024", company: "Meta", question: "How would you monetize Instagram Stories?", type: "Strategy", tags: ["monetization", "Stories", "ads"], frameworkHint: "Strategy Path" },
+  { id: 158, date: "Nov 2024", company: "Google", question: "How would you improve Google Meet for education?", type: "Product Sense", tags: ["video", "education", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 159, date: "Nov 2024", company: "Google", question: "Design a product to help Google compete with OpenAI in the enterprise AI market.", type: "Strategy", tags: ["AI", "enterprise", "competition"], frameworkHint: "Strategy Path" },
+  { id: 160, date: "Nov 2024", company: "Google", question: "How would you measure the success of Google Gemini?", type: "Analytical", tags: ["AI", "Gemini", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 161, date: "Nov 2024", company: "Microsoft", question: "How would you improve Microsoft Excel for data analysts?", type: "Product Sense", tags: ["Excel", "data", "B2B"], frameworkHint: "Improve Existing Product Path" },
+  { id: 162, date: "Nov 2024", company: "Microsoft", question: "Design a product to help Microsoft compete with Slack in team communication.", type: "Strategy", tags: ["Teams", "competition", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 163, date: "Nov 2024", company: "Apple", question: "How would you improve Siri's accuracy and usefulness?", type: "Product Sense", tags: ["Siri", "AI", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 164, date: "Nov 2024", company: "Apple", question: "Design a new product category for Apple in the healthcare space.", type: "Strategy", tags: ["healthcare", "hardware", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 165, date: "Nov 2024", company: "Netflix", question: "How would you improve Netflix's parental controls?", type: "Product Sense", tags: ["parental controls", "safety", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 166, date: "Nov 2024", company: "Netflix", question: "Design a product to help Netflix expand into interactive entertainment.", type: "Strategy", tags: ["interactive", "gaming", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 167, date: "Nov 2024", company: "Spotify", question: "How would you improve Spotify's audiobook experience?", type: "Product Sense", tags: ["audiobooks", "audio", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 168, date: "Nov 2024", company: "LinkedIn", question: "How would you improve LinkedIn's premium subscription value?", type: "Product Sense", tags: ["premium", "subscription", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 169, date: "Nov 2024", company: "LinkedIn", question: "Design a product to help LinkedIn compete with Glassdoor for company reviews.", type: "Strategy", tags: ["reviews", "competition", "strategy"], frameworkHint: "Strategy Path" },
+  // ── Oct 2024 ──────────────────────────────────────────────────────────────
+  { id: 170, date: "Oct 2024", company: "Meta", question: "How would you improve Facebook's news feed algorithm?", type: "Product Sense", tags: ["feed", "algorithm", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 171, date: "Oct 2024", company: "Meta", question: "Design a product to help Meta compete with TikTok for short-form video.", type: "Strategy", tags: ["video", "competition", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 172, date: "Oct 2024", company: "Meta", question: "How would you measure the success of Meta's AI assistant?", type: "Analytical", tags: ["AI", "assistant", "metrics"], frameworkHint: "Metric Diagnosis Path" },
+  { id: 173, date: "Oct 2024", company: "Google", question: "How would you improve Google's ad targeting while respecting user privacy?", type: "Product Sense", tags: ["ads", "privacy", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 174, date: "Oct 2024", company: "Google", question: "Design a product to help Google enter the healthcare data market.", type: "Strategy", tags: ["healthcare", "data", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 175, date: "Oct 2024", company: "Amazon", question: "How would you improve Amazon's seller analytics dashboard?", type: "Product Sense", tags: ["B2B", "analytics", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 176, date: "Oct 2024", company: "Amazon", question: "Design a product to help Amazon compete with Shopify for small businesses.", type: "Strategy", tags: ["SMB", "e-commerce", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 177, date: "Oct 2024", company: "Uber", question: "How would you improve Uber's accessibility features for riders with disabilities?", type: "Product Sense", tags: ["accessibility", "disability", "improvement"], frameworkHint: "Accessibility Design Path" },
+  { id: 178, date: "Oct 2024", company: "Uber", question: "Design a product to help Uber expand into autonomous vehicle rides.", type: "Strategy", tags: ["autonomous", "EV", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 179, date: "Oct 2024", company: "Airbnb", question: "How would you improve Airbnb's pricing recommendations for hosts?", type: "Product Sense", tags: ["pricing", "host", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 180, date: "Oct 2024", company: "Doordash", question: "How would you improve DoorDash's order tracking experience?", type: "Product Sense", tags: ["tracking", "delivery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 181, date: "Oct 2024", company: "Stripe", question: "How would you improve Stripe's dispute resolution process for merchants?", type: "Product Sense", tags: ["disputes", "fintech", "B2B"], frameworkHint: "Improve Existing Product Path" },
+  { id: 182, date: "Oct 2024", company: "Stripe", question: "Design a product to help Stripe expand into buy-now-pay-later.", type: "Strategy", tags: ["BNPL", "fintech", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 183, date: "Oct 2024", company: "Microsoft", question: "How would you improve Microsoft's Bing AI search experience?", type: "Product Sense", tags: ["AI", "search", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 184, date: "Oct 2024", company: "Apple", question: "How would you improve the App Store discovery experience?", type: "Product Sense", tags: ["App Store", "discovery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  // ── Sep 2024 ──────────────────────────────────────────────────────────────
+  { id: 185, date: "Sep 2024", company: "Meta", question: "How would you improve Facebook Marketplace for peer-to-peer transactions?", type: "Product Sense", tags: ["marketplace", "P2P", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 186, date: "Sep 2024", company: "Meta", question: "Design a product to help Meta enter the professional networking space.", type: "Strategy", tags: ["professional", "LinkedIn", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 187, date: "Sep 2024", company: "Google", question: "How would you improve Google's product for job seekers?", type: "Product Sense", tags: ["jobs", "search", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 188, date: "Sep 2024", company: "Google", question: "Design a product to help Google compete with Zoom for video conferencing.", type: "Strategy", tags: ["video", "competition", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 189, date: "Sep 2024", company: "Amazon", question: "How would you improve Amazon's subscription box service?", type: "Product Sense", tags: ["subscription", "e-commerce", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 190, date: "Sep 2024", company: "Netflix", question: "How would you improve Netflix's social features for watch parties?", type: "Product Sense", tags: ["social", "watch party", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 191, date: "Sep 2024", company: "Spotify", question: "How would you improve Spotify's concert and live event discovery?", type: "Product Sense", tags: ["live events", "discovery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 192, date: "Sep 2024", company: "Uber", question: "How would you improve Uber's multi-stop ride experience?", type: "Product Sense", tags: ["ride-sharing", "multi-stop", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 193, date: "Sep 2024", company: "Airbnb", question: "How would you improve Airbnb's experience for solo travelers?", type: "Product Sense", tags: ["solo travel", "safety", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 194, date: "Sep 2024", company: "Doordash", question: "Design a product to help DoorDash compete with Instacart for grocery delivery.", type: "Strategy", tags: ["grocery", "competition", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 195, date: "Sep 2024", company: "LinkedIn", question: "How would you improve LinkedIn's event discovery feature?", type: "Product Sense", tags: ["events", "discovery", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 196, date: "Sep 2024", company: "Microsoft", question: "How would you improve Microsoft's productivity suite for Gen Z workers?", type: "Product Sense", tags: ["productivity", "Gen Z", "B2B"], frameworkHint: "Improve Existing Product Path" },
+  { id: 197, date: "Sep 2024", company: "Apple", question: "How would you improve Apple Maps to compete with Google Maps?", type: "Product Sense", tags: ["maps", "competition", "improvement"], frameworkHint: "Improve Existing Product Path" },
+  { id: 198, date: "Sep 2024", company: "Stripe", question: "How would you improve Stripe's checkout conversion rate for merchants?", type: "Product Sense", tags: ["conversion", "checkout", "fintech"], frameworkHint: "Improve Existing Product Path" },
+  { id: 199, date: "Sep 2024", company: "Lyft", question: "Design a product to help Lyft expand into micro-mobility (scooters/bikes).", type: "Strategy", tags: ["micro-mobility", "expansion", "strategy"], frameworkHint: "Strategy Path" },
+  { id: 200, date: "Sep 2024", company: "Tinder", question: "How would you improve Tinder's matching algorithm to increase meaningful connections?", type: "Product Sense", tags: ["matching", "engagement", "improvement"], frameworkHint: "Improve Existing Product Path" },
 ];
 
-export const QUESTION_BANK_STATS = {
-  total: questionBank.length,
-  companies: Array.from(new Set(questionBank.map(q => q.company))).length,
-  types: QUESTION_TYPES.length,
-  source: "Lewis Lin's PM Question Bank (community-sourced, 2019–2025)",
-  sourceUrl: "https://docs.google.com/spreadsheets/d/1rz10oEeLx-eGnilahKczYPhGfCUzIEKL-xRnjoQ-SX4",
-};
+export const ALL_COMPANIES = Array.from(new Set(questionBank.map(q => q.company))).sort();
+
+export function countByType(questions: BankQuestion[]): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const q of questions) {
+    counts[q.type] = (counts[q.type] ?? 0) + 1;
+  }
+  return counts;
+}

@@ -1,5 +1,5 @@
-// PM War Room Design System — dark navy-slate, electric indigo primary, semantic category colors
-// QuestionBank: Lewis Lin's PM Question Bank — searchable, filterable, with category color coding
+// QuestionBank: Lewis Lin's PM Question Bank — Most Recent 200 Questions (Sep 2024–Aug 2025)
+// Design: PM War Room — dark navy, indigo accent, semantic type colors, no interview format badges
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,36 +14,37 @@ import {
   ChevronUp,
   Shuffle,
   X,
+  Calendar,
 } from "lucide-react";
 import {
   questionBank,
   QUESTION_TYPES,
-  COMPANIES,
+  ALL_COMPANIES,
   TYPE_COLORS,
-  QUESTION_BANK_STATS,
   type BankQuestion,
   type QuestionType,
 } from "@/lib/questionBank";
 
-const FORMAT_COLORS: Record<string, string> = {
-  "Phone": "#64748b",
-  "Video": "#0ea5e9",
-  "In-Person": "#10b981",
-  "On-Site": "#f59e0b",
-  "First Round": "#8b5cf6",
-  "Other": "#6b7280",
-};
+const SOURCE_URL = "https://docs.google.com/spreadsheets/d/1rz10oEeLx-eGnilahKczYPhGfCUzIEKL-xRnjoQ-SX4";
 
 function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string }) {
   const [expanded, setExpanded] = useState(false);
   const color = TYPE_COLORS[q.type] || "#6b7280";
 
   const highlight = (text: string) => {
-    if (!searchQuery.trim()) return text;
+    if (!searchQuery.trim()) return <>{text}</>;
     const regex = new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
     const parts = text.split(regex);
-    return parts.map((part, i) =>
-      regex.test(part) ? <mark key={i}>{part}</mark> : part
+    return (
+      <>
+        {parts.map((part, i) =>
+          regex.test(part) ? (
+            <mark key={i} className="bg-primary/30 text-foreground rounded px-0.5">{part}</mark>
+          ) : (
+            part
+          )
+        )}
+      </>
     );
   };
 
@@ -54,7 +55,7 @@ function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.18 }}
-      className="framework-card rounded-lg border border-white/8 bg-card p-4 cursor-pointer"
+      className="framework-card rounded-lg border border-white/8 bg-card p-4 cursor-pointer hover:border-white/15 transition-colors"
       style={{ borderLeftWidth: "3px", borderLeftColor: color }}
       onClick={() => setExpanded(!expanded)}
     >
@@ -68,19 +69,13 @@ function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string
             >
               {q.type}
             </span>
-            <span
-              className="cat-badge"
-              style={{
-                background: `${FORMAT_COLORS[q.format] || "#6b7280"}18`,
-                color: FORMAT_COLORS[q.format] || "#6b7280",
-                border: `1px solid ${FORMAT_COLORS[q.format] || "#6b7280"}33`,
-              }}
-            >
-              {q.format}
-            </span>
             <span className="flex items-center gap-1 text-xs text-muted-foreground font-mono">
               <Building2 size={10} />
               {q.company}
+            </span>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground font-mono ml-auto">
+              <Calendar size={10} />
+              {q.date}
             </span>
           </div>
 
@@ -89,7 +84,7 @@ function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string
             {highlight(q.question)}
           </p>
 
-          {/* Tags (shown when expanded) */}
+          {/* Expanded: tags + framework hint */}
           <AnimatePresence>
             {expanded && (
               <motion.div
@@ -99,7 +94,7 @@ function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string
                 transition={{ duration: 0.2 }}
                 className="mt-3 pt-3 border-t border-white/8"
               >
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5 mb-2">
                   {q.tags.map((tag) => (
                     <span
                       key={tag}
@@ -110,13 +105,15 @@ function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string
                     </span>
                   ))}
                 </div>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Apply the{" "}
-                  <span style={{ color }} className="font-semibold">
-                    {q.type}
-                  </span>{" "}
-                  framework from the Solution Paths section.
-                </p>
+                {q.frameworkHint && (
+                  <p className="text-xs text-muted-foreground">
+                    Suggested path:{" "}
+                    <span style={{ color }} className="font-semibold">
+                      {q.frameworkHint}
+                    </span>
+                    {" "}— see Solution Paths section.
+                  </p>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
@@ -208,11 +205,10 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
           Lewis Lin's PM Question Bank
         </h2>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
-          A curated set of{" "}
-          <span className="text-foreground font-semibold">{QUESTION_BANK_STATS.total}+ real interview questions</span>{" "}
+          The <span className="text-foreground font-semibold">200 most recent real interview questions</span>{" "}
           from the community-sourced{" "}
           <a
-            href={QUESTION_BANK_STATS.sourceUrl}
+            href={SOURCE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline inline-flex items-center gap-1"
@@ -220,17 +216,16 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
             Decode and Conquer question bank
             <ExternalLink size={11} />
           </a>
-          , spanning 2019–2025 across {QUESTION_BANK_STATS.companies} companies and{" "}
-          {QUESTION_BANK_STATS.types} question types.
+          {" "}(Sep 2024–Aug 2025), spanning {ALL_COMPANIES.length} companies and {QUESTION_TYPES.length} question types.
         </p>
       </div>
 
       {/* Stats bar */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         {[
-          { label: "Total Questions", value: QUESTION_BANK_STATS.total + "+" },
-          { label: "Companies", value: QUESTION_BANK_STATS.companies },
-          { label: "Question Types", value: QUESTION_BANK_STATS.types },
+          { label: "Questions", value: "200" },
+          { label: "Companies", value: String(ALL_COMPANIES.length) },
+          { label: "Question Types", value: String(QUESTION_TYPES.length) },
         ].map((stat) => (
           <div
             key={stat.label}
@@ -292,7 +287,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="rounded-lg border border-white/8 bg-card p-4 space-y-4"
+              className="rounded-lg border border-white/8 bg-card p-4 space-y-4 overflow-hidden"
             >
               {/* Type filters */}
               <div>
@@ -329,7 +324,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
                   Company
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {["All", ...COMPANIES].map((company) => (
+                  {["All", ...ALL_COMPANIES].map((company) => (
                     <button
                       key={company}
                       onClick={() => { setSelectedCompany(company); setPage(1); }}
@@ -398,11 +393,18 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
                 {randomQuestion.type}
               </span>
               <span className="cat-badge bg-white/5 text-muted-foreground border border-white/8">
+                <Building2 size={10} className="inline mr-1" />
                 {randomQuestion.company}
               </span>
               <span className="cat-badge bg-white/5 text-muted-foreground border border-white/8">
-                {randomQuestion.format}
+                <Calendar size={10} className="inline mr-1" />
+                {randomQuestion.date}
               </span>
+              {randomQuestion.frameworkHint && (
+                <span className="cat-badge bg-white/5 text-muted-foreground border border-white/8">
+                  → {randomQuestion.frameworkHint}
+                </span>
+              )}
             </div>
           </motion.div>
         )}
@@ -452,7 +454,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
         <div className="mt-6 text-center">
           <button
             onClick={() => setPage((p) => p + 1)}
-            className="px-6 py-2.5 rounded-lg border border-white/8 bg-secondary text-sm text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
+            className="px-6 py-2.5 rounded-lg border border-white/8 bg-secondary text-sm text-muted-foreground hover:text-foreground hover:border-white/20 transition-colors font-medium"
           >
             Load more ({filtered.length - paginated.length} remaining)
           </button>
@@ -460,19 +462,20 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
       )}
 
       {/* Source attribution */}
-      <div className="mt-8 pt-6 border-t border-white/8">
-        <p className="text-xs text-muted-foreground text-center">
-          Source:{" "}
+      <div className="mt-10 pt-6 border-t border-white/8 text-center">
+        <p className="text-xs text-muted-foreground">
+          Questions sourced from{" "}
           <a
-            href={QUESTION_BANK_STATS.sourceUrl}
+            href={SOURCE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline inline-flex items-center gap-1"
           >
             Lewis Lin's PM Question Bank
             <ExternalLink size={10} />
-          </a>{" "}
-          — community-sourced real interview questions (2019–2025). Questions are attributed to companies as reported by contributors.
+          </a>
+          {" "}— community-submitted real interview questions from the Decode and Conquer ecosystem.
+          Showing the 200 most recent entries (Sep 2024–Aug 2025).
         </p>
       </div>
     </section>
