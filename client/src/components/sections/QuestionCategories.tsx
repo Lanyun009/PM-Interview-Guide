@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LayoutGrid, ChevronDown, ChevronUp, Lightbulb } from "lucide-react";
 import { questionCategories, type QuestionCategory } from "@/lib/data";
+import GlossaryLink from "@/components/GlossaryLink";
 
 const colorMap: Record<string, {
   bg: string; border: string; badge: string; text: string;
@@ -215,7 +216,7 @@ function CategoryCard({ cat, index, searchQuery }: { cat: QuestionCategory; inde
   );
 }
 
-export default function QuestionCategories({ searchQuery }: { searchQuery: string }) {
+export default function QuestionCategories({ searchQuery, onNavigateToGlossary }: { searchQuery: string; onNavigateToGlossary?: (termId: string) => void }) {
   const filtered = questionCategories.filter((cat) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
@@ -241,6 +242,14 @@ export default function QuestionCategories({ searchQuery }: { searchQuery: strin
           Six core question types — each with signal words to detect them, real interview examples,
           and a structured step-by-step framework to answer them. Click any card to expand the full solution path.
         </p>
+        {onNavigateToGlossary && (
+          <div className="mt-3 flex flex-wrap gap-2 items-center">
+            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Key metrics by type:</span>
+            {["DAU","MAU","Retention Rate","Churn Rate","CAC","LTV","NPS","GMV","AARRR","A/B Test","North Star Metric"].map((t) => (
+              <GlossaryLink key={t} term={t} onNavigate={onNavigateToGlossary} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Category Legend */}

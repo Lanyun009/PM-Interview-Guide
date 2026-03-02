@@ -34,6 +34,23 @@ export default function Home() {
   const [showHero, setShowHero] = useState(true);
   // highlightPathId: when set, SolutionPaths will scroll to and highlight that card
   const [highlightPathId, setHighlightPathId] = useState<number | undefined>(undefined);
+  // highlightTermId: when set, Glossary will scroll to and highlight that term card
+  const [highlightTermId, setHighlightTermId] = useState<string | undefined>(undefined);
+
+  // Navigate to Glossary and highlight a specific term card
+  const navigateToGlossary = useCallback((termId: string) => {
+    setHighlightTermId(termId);
+    setActiveSection("glossary");
+    setShowHero(false);
+    setSearchQuery("");
+  }, []);
+
+  // Clear highlight when user manually switches away from glossary
+  useEffect(() => {
+    if (activeSection !== "glossary") {
+      setHighlightTermId(undefined);
+    }
+  }, [activeSection]);
 
   // Navigate to Solution Paths and highlight a specific path card
   const navigateToPath = useCallback((frameworkHint: string) => {
@@ -90,14 +107,14 @@ export default function Home() {
   const renderActiveSection = () => {
     const commonProps = { searchQuery };
     switch (activeSection) {
-      case "signal":       return <SignalDetector {...commonProps} />;
-      case "categories":   return <QuestionCategories {...commonProps} />;
+      case "signal":       return <SignalDetector {...commonProps} onNavigateToGlossary={navigateToGlossary} />;
+      case "categories":   return <QuestionCategories {...commonProps} onNavigateToGlossary={navigateToGlossary} />;
       case "matrix":       return <CompanyMatrix {...commonProps} />;
-      case "paths":        return <SolutionPaths {...commonProps} highlightPathId={highlightPathId} />;
-      case "domains":      return <DomainReference {...commonProps} />;
-      case "universal":    return <UniversalFramework {...commonProps} />;
+      case "paths":        return <SolutionPaths {...commonProps} highlightPathId={highlightPathId} onNavigateToGlossary={navigateToGlossary} />;
+      case "domains":      return <DomainReference {...commonProps} onNavigateToGlossary={navigateToGlossary} />;
+      case "universal":    return <UniversalFramework {...commonProps} onNavigateToGlossary={navigateToGlossary} />;
       case "question-bank": return <QuestionBank {...commonProps} onNavigateToPath={navigateToPath} />;
-      case "glossary":      return <Glossary {...commonProps} />;
+      case "glossary":      return <Glossary {...commonProps} highlightTermId={highlightTermId} />;
       default:             return null;
     }
   };

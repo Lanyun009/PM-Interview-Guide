@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { GitBranch, Lightbulb } from "lucide-react";
 import { solutionPaths, questionCategories, categoryColorMap, categoryHexMap, type CategoryId } from "@/lib/data";
+import GlossaryLink from "@/components/GlossaryLink";
 
 const pathColors = [
   { bg: "bg-emerald-500/8", border: "border-emerald-500/25 hover:border-emerald-500/50", accent: "#10b981", stepBg: "bg-emerald-500/15", stepText: "text-emerald-300", tipBg: "bg-emerald-500/10 border-emerald-500/25" },
@@ -35,7 +36,7 @@ export const FRAMEWORK_HINT_TO_PATH_ID: Record<string, number> = {
   "Strategy Path": 6,
 };
 
-export default function SolutionPaths({ searchQuery, highlightPathId }: { searchQuery: string; highlightPathId?: number }) {
+export default function SolutionPaths({ searchQuery, highlightPathId, onNavigateToGlossary }: { searchQuery: string; highlightPathId?: number; onNavigateToGlossary?: (termId: string) => void }) {
   const highlightRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -71,6 +72,14 @@ export default function SolutionPaths({ searchQuery, highlightPathId }: { search
           Six ready-to-use answer paths — each mapped to a question type with step-by-step guidance,
           the key question to answer at each step, and a pro tip to elevate your response.
         </p>
+        {onNavigateToGlossary && (
+          <div className="mt-3 flex flex-wrap gap-2 items-center">
+            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Key metrics in paths:</span>
+            {["DAU","MAU","Retention Rate","Churn Rate","LTV","CAC","NPS","A/B Test","North Star Metric","PMF","AARRR"].map((t) => (
+              <GlossaryLink key={t} term={t} onNavigate={onNavigateToGlossary} />
+            ))}
+          </div>
+        )}
       </div>
 
       {filtered.length === 0 ? (

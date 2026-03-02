@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { BookOpen, AlertTriangle, CheckCircle2, Target } from "lucide-react";
 import { universalFramework } from "@/lib/data";
+import GlossaryLink from "@/components/GlossaryLink";
 
 const objectiveColors: Record<string, { bg: string; text: string; border: string }> = {
   emerald: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/25" },
@@ -13,7 +14,7 @@ const objectiveColors: Record<string, { bg: string; text: string; border: string
   rose: { bg: "bg-rose-500/10", text: "text-rose-400", border: "border-rose-500/25" },
 };
 
-export default function UniversalFramework({ searchQuery }: { searchQuery: string }) {
+export default function UniversalFramework({ searchQuery, onNavigateToGlossary }: { searchQuery: string; onNavigateToGlossary?: (termId: string) => void }) {
   const filteredSteps = universalFramework.steps.filter((s) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
@@ -39,6 +40,14 @@ export default function UniversalFramework({ searchQuery }: { searchQuery: strin
           A 7-step structure that works for any product sense question — adapt the depth of each step
           to the question type. This is your fallback when you're unsure which path to take.
         </p>
+        {onNavigateToGlossary && (
+          <div className="mt-3 flex flex-wrap gap-2 items-center">
+            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Framework terms:</span>
+            {["North Star Metric","JTBD","PMF","ICE Score","RICE Score","A/B Test","Guardrail Metric","MoSCoW","MVP"].map((t) => (
+              <GlossaryLink key={t} term={t} onNavigate={onNavigateToGlossary} />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

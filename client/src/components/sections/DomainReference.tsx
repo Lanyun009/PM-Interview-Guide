@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { Globe } from "lucide-react";
 import { domainCards } from "@/lib/data";
+import GlossaryLink, { TERM_TO_ID } from "@/components/GlossaryLink";
 
 const colorStyles: Record<string, {
   bg: string; border: string; badge: string; text: string; metricBg: string;
@@ -52,7 +53,7 @@ const colorStyles: Record<string, {
   },
 };
 
-export default function DomainReference({ searchQuery }: { searchQuery: string }) {
+export default function DomainReference({ searchQuery, onNavigateToGlossary }: { searchQuery: string; onNavigateToGlossary?: (termId: string) => void }) {
   const filtered = domainCards.filter((d) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
@@ -129,12 +130,16 @@ export default function DomainReference({ searchQuery }: { searchQuery: string }
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {domain.keyMetrics.map((metric) => (
-                      <span
-                        key={metric}
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded border ${styles.metricBg}`}
-                      >
-                        {metric}
-                      </span>
+                      onNavigateToGlossary && TERM_TO_ID[metric] ? (
+                        <GlossaryLink key={metric} term={metric} onNavigate={onNavigateToGlossary} />
+                      ) : (
+                        <span
+                          key={metric}
+                          className={`text-[10px] font-mono px-2 py-0.5 rounded border ${styles.metricBg}`}
+                        >
+                          {metric}
+                        </span>
+                      )
                     ))}
                   </div>
                 </div>

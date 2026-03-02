@@ -2,12 +2,13 @@
 // Design: PM War Room — dark navy, indigo accent, Space Grotesk + JetBrains Mono
 // Layout: Left alphabetical index + category chips, right scrollable term cards
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { Search, BookOpen, ChevronDown, ChevronUp, Hash, ArrowRight } from "lucide-react";
 import { glossary, GLOSSARY_CATEGORIES, CATEGORY_COLORS, type GlossaryCategory, type GlossaryTerm } from "@/lib/glossary";
 
 interface GlossaryProps {
   searchQuery: string;
+  highlightTermId?: string;
 }
 
 function CategoryBadge({ category }: { category: GlossaryCategory }) {
@@ -122,7 +123,20 @@ function TermCard({ term }: { term: GlossaryTerm }) {
   );
 }
 
-export default function Glossary({ searchQuery }: GlossaryProps) {
+export default function Glossary({ searchQuery, highlightTermId }: GlossaryProps) {
+  // Scroll to and highlight the term when navigated from another section
+  useEffect(() => {
+    if (!highlightTermId) return;
+    const timer = setTimeout(() => {
+      const el = document.getElementById(`term-${highlightTermId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.classList.add("ring-2", "ring-primary", "ring-offset-1", "ring-offset-background");
+        setTimeout(() => el.classList.remove("ring-2", "ring-primary", "ring-offset-1", "ring-offset-background"), 2500);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [highlightTermId]);
   const [localSearch, setLocalSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<GlossaryCategory | "All">("All");
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);

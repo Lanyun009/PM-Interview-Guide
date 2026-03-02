@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { Zap, ArrowRight, TrendingUp, Building2, ShoppingBag, Briefcase, Smartphone, Cpu } from "lucide-react";
 import { companySignals, questionCategories, type CompanySignal } from "@/lib/data";
+import GlossaryLink from "@/components/GlossaryLink";
 
 const companyIcons: Record<string, React.ReactNode> = {
   "early-startup": <TrendingUp size={18} />,
@@ -126,7 +127,8 @@ function SignalCard({ signal, index }: { signal: CompanySignal; index: number })
   );
 }
 
-export default function SignalDetector({ searchQuery }: { searchQuery: string }) {
+export default function SignalDetector({ searchQuery, onNavigateToGlossary }: { searchQuery: string; onNavigateToGlossary?: (termId: string) => void }) {
+  const gl = onNavigateToGlossary ?? (() => {});
   const filtered = companySignals.filter((s) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
@@ -175,6 +177,13 @@ export default function SignalDetector({ searchQuery }: { searchQuery: string })
               </div>
             </div>
           ))}
+          {/* Glossary term quick links */}
+          <div className="col-span-full pt-2 border-t border-border/30 flex flex-wrap gap-2 items-center">
+            <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Key metrics:</span>
+            {["DAU","MAU","Retention Rate","Churn Rate","LTV","CAC","GMV","NPS","MRR","ARR"].map((t) => (
+              <GlossaryLink key={t} term={t} onNavigate={gl} />
+            ))}
+          </div>
         </div>
       </motion.div>
 
