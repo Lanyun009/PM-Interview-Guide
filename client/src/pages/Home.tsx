@@ -159,8 +159,12 @@ export default function Home() {
                   transition={{ delay: 0.3 }}
                   className="text-base text-muted-foreground mb-8 max-w-xl leading-relaxed"
                 >
-                  A complete signal-to-solution map for PM interviews. Detect the question type,
-                  match it to the company context, and apply the right structured path — every time.
+                  In a product interview, the instinct is to jump straight into an answer. Resist it.
+                  The first 30 seconds should be spent detecting the question type, reading the company
+                  context, and selecting the right framework path. A product sense question at a Series A
+                  startup calls for a completely different structure than the same question at Google.
+                  This reference maps that signal-to-solution logic — so you walk in knowing exactly
+                  which path to take before the interviewer finishes the sentence.
                 </motion.p>
 
                 {/* Flow diagram */}
