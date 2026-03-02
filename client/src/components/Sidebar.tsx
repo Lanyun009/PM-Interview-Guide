@@ -2,7 +2,8 @@
 // Persistent left sidebar with icon + label navigation, search, and active state
 
 import { useState } from "react";
-import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight, Library, BookMarked } from "lucide-react";
+import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight, Library, BookMarked, Moon, Sun } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export type SectionId = "signal" | "categories" | "matrix" | "paths" | "domains" | "universal" | "question-bank" | "glossary";
 
@@ -26,6 +27,7 @@ const navItems: { id: SectionId; label: string; icon: React.ReactNode; shortcut:
 
 export default function Sidebar({ activeSection, onSectionChange, searchQuery, onSearchChange }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
@@ -124,12 +126,41 @@ export default function Sidebar({ activeSection, onSectionChange, searchQuery, o
         </nav>
 
         {/* Footer */}
-        <div className="px-4 py-3 border-t border-sidebar-border">
+        <div className="px-4 py-3 border-t border-sidebar-border space-y-3">
+          {/* Theme Toggle */}
+          {toggleTheme && (
+            <button
+              onClick={toggleTheme}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-lg border border-border bg-muted/30 hover:bg-accent transition-colors group"
+              aria-label="Toggle theme"
+            >
+              <div className="flex items-center gap-2">
+                {theme === 'dark' ? (
+                  <Sun size={13} className="text-amber-400" />
+                ) : (
+                  <Moon size={13} className="text-indigo-500" />
+                )}
+                <span className="text-[11px] font-mono text-muted-foreground group-hover:text-foreground transition-colors">
+                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                </span>
+              </div>
+              {/* Toggle pill */}
+              <div className={`relative w-8 h-4 rounded-full transition-colors duration-200 ${
+                theme === 'dark' ? 'bg-muted' : 'bg-primary'
+              }`}>
+                <div className={`absolute top-0.5 w-3 h-3 rounded-full shadow transition-all duration-200 ${
+                  theme === 'dark'
+                    ? 'left-0.5 bg-muted-foreground'
+                    : 'left-4 bg-primary-foreground'
+                }`} />
+              </div>
+            </button>
+          )}
           <div className="text-[10px] text-muted-foreground font-mono text-center leading-relaxed">
             PM Interview Reference<br />
             <span className="text-primary/70">Signal → Category → Path</span>
           </div>
-          <div className="mt-2 text-[9px] text-muted-foreground/50 font-mono text-center">
+          <div className="text-[9px] text-muted-foreground/50 font-mono text-center">
             PS & Analytical Qs: Lewis Lin's Question Bank
           </div>
         </div>
