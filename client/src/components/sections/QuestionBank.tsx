@@ -15,6 +15,7 @@ import {
   Shuffle,
   X,
   Calendar,
+  ArrowRight,
 } from "lucide-react";
 import {
   questionBank,
@@ -27,7 +28,15 @@ import {
 
 const SOURCE_URL = "https://docs.google.com/spreadsheets/d/1rz10oEeLx-eGnilahKczYPhGfCUzIEKL-xRnjoQ-SX4";
 
-function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string }) {
+function QuestionCard({
+  q,
+  searchQuery,
+  onNavigateToPath,
+}: {
+  q: BankQuestion;
+  searchQuery: string;
+  onNavigateToPath?: (hint: string) => void;
+}) {
   const [expanded, setExpanded] = useState(false);
   const color = TYPE_COLORS[q.type] || "#6b7280";
 
@@ -106,13 +115,21 @@ function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string
                   ))}
                 </div>
                 {q.frameworkHint && (
-                  <p className="text-xs text-muted-foreground">
-                    Suggested path:{" "}
-                    <span style={{ color }} className="font-semibold">
-                      {q.frameworkHint}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onNavigateToPath?.(q.frameworkHint!);
+                    }}
+                    className="flex items-center gap-1.5 mt-1 text-xs font-semibold transition-all group"
+                    style={{ color }}
+                    title={`Go to ${q.frameworkHint} in Section 4`}
+                  >
+                    <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+                    {q.frameworkHint}
+                    <span className="text-muted-foreground font-normal group-hover:text-foreground transition-colors">
+                      → Section 4
                     </span>
-                    {" "}— see Solution Paths section.
-                  </p>
+                  </button>
                 )}
               </motion.div>
             )}
@@ -131,9 +148,10 @@ function QuestionCard({ q, searchQuery }: { q: BankQuestion; searchQuery: string
 interface QuestionBankProps {
   searchQuery?: string;
   globalSearch?: string;
+  onNavigateToPath?: (frameworkHint: string) => void;
 }
 
-export default function QuestionBank({ searchQuery: propSearch = "", globalSearch = "" }: QuestionBankProps) {
+export default function QuestionBank({ searchQuery: propSearch = "", globalSearch = "", onNavigateToPath }: QuestionBankProps) {
   const [localSearch, setLocalSearch] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<QuestionType[]>([]);
   const [selectedCompany, setSelectedCompany] = useState<string>("All");
@@ -381,7 +399,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
             <p className="text-base font-medium text-foreground mb-3">
               {randomQuestion.question}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 items-center">
               <span
                 className="cat-badge"
                 style={{
@@ -401,9 +419,21 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
                 {randomQuestion.date}
               </span>
               {randomQuestion.frameworkHint && (
-                <span className="cat-badge bg-white/5 text-muted-foreground border border-white/8">
-                  → {randomQuestion.frameworkHint}
-                </span>
+                <button
+                  onClick={() => {
+                    onNavigateToPath?.(randomQuestion.frameworkHint!);
+                    setRandomQuestion(null);
+                  }}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded text-xs font-semibold border transition-all hover:opacity-80 group"
+                  style={{
+                    color: TYPE_COLORS[randomQuestion.type],
+                    background: `${TYPE_COLORS[randomQuestion.type]}15`,
+                    borderColor: `${TYPE_COLORS[randomQuestion.type]}40`,
+                  }}
+                >
+                  <ArrowRight size={10} className="group-hover:translate-x-0.5 transition-transform" />
+                  {randomQuestion.frameworkHint}
+                </button>
               )}
             </div>
           </motion.div>
@@ -443,7 +473,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
         <div className="space-y-3">
           <AnimatePresence mode="popLayout">
             {paginated.map((q) => (
-              <QuestionCard key={q.id} q={q} searchQuery={searchQuery} />
+              <QuestionCard key={q.id} q={q} searchQuery={searchQuery} onNavigateToPath={onNavigateToPath} />
             ))}
           </AnimatePresence>
         </div>

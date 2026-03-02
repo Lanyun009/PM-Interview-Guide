@@ -1,5 +1,6 @@
 // Home.tsx — PM War Room Design System
 // Main page: sidebar + hero + section content with search and keyboard shortcuts
+// Supports deep-linking from Question Bank → Solution Paths via highlightPathId
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,22 +9,12 @@ import Sidebar, { type SectionId } from "@/components/Sidebar";
 import SignalDetector from "@/components/sections/SignalDetector";
 import QuestionCategories from "@/components/sections/QuestionCategories";
 import CompanyMatrix from "@/components/sections/CompanyMatrix";
-import SolutionPaths from "@/components/sections/SolutionPaths";
+import SolutionPaths, { FRAMEWORK_HINT_TO_PATH_ID } from "@/components/sections/SolutionPaths";
 import DomainReference from "@/components/sections/DomainReference";
 import UniversalFramework from "@/components/sections/UniversalFramework";
 import QuestionBank from "@/components/sections/QuestionBank";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663351598461/6wyqUKbV9QdyQXzBURssR3/hero-bg-7C8xskdCPo2j9ELra32P2r.webp";
-
-const sectionComponents: Record<SectionId, React.ComponentType<{ searchQuery: string }>> = {
-  signal: SignalDetector,
-  categories: QuestionCategories,
-  matrix: CompanyMatrix,
-  paths: SolutionPaths,
-  domains: DomainReference,
-  universal: UniversalFramework,
-  "question-bank": QuestionBank,
-};
 
 const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   signal: { title: "Signal Detector", subtitle: "Read company context → predict question focus" },
@@ -32,15 +23,34 @@ const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   paths: { title: "Solution Paths", subtitle: "6 ready-to-use structured answer paths" },
   domains: { title: "Domain Reference", subtitle: "9 domains with metrics & typical focus areas" },
   universal: { title: "Universal Framework", subtitle: "7-step structure for any question type" },
-  "question-bank": { title: "Lewis Lin's PM Question Bank", subtitle: "200+ real interview questions from Decode & Conquer" },
+  "question-bank": { title: "Lewis Lin's PM Question Bank", subtitle: "200 most recent real interview questions" },
 };
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<SectionId>("signal");
   const [searchQuery, setSearchQuery] = useState("");
   const [showHero, setShowHero] = useState(true);
+  // highlightPathId: when set, SolutionPaths will scroll to and highlight that card
+  const [highlightPathId, setHighlightPathId] = useState<number | undefined>(undefined);
 
-  // Keyboard shortcuts: 1–6 for sections
+  // Navigate to Solution Paths and highlight a specific path card
+  const navigateToPath = useCallback((frameworkHint: string) => {
+    const pathId = FRAMEWORK_HINT_TO_PATH_ID[frameworkHint];
+    if (!pathId) return;
+    setHighlightPathId(pathId);
+    setActiveSection("paths");
+    setShowHero(false);
+    setSearchQuery("");
+  }, []);
+
+  // Clear highlight when user manually switches away from paths
+  useEffect(() => {
+    if (activeSection !== "paths") {
+      setHighlightPathId(undefined);
+    }
+  }, [activeSection]);
+
+  // Keyboard shortcuts: 1–7 for sections
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
     const sectionMap: Record<string, SectionId> = {
@@ -56,7 +66,6 @@ export default function Home() {
       setActiveSection(sectionMap[e.key]);
       setShowHero(false);
     }
-    // Escape clears search
     if (e.key === "Escape") setSearchQuery("");
   }, []);
 
@@ -69,10 +78,25 @@ export default function Home() {
     setActiveSection(section);
     setShowHero(false);
     setSearchQuery("");
+    if (section !== "paths") setHighlightPathId(undefined);
   };
 
-  const ActiveSection = sectionComponents[activeSection];
   const meta = sectionMeta[activeSection];
+
+  // Render the active section with the right props
+  const renderActiveSection = () => {
+    const commonProps = { searchQuery };
+    switch (activeSection) {
+      case "signal":       return <SignalDetector {...commonProps} />;
+      case "categories":   return <QuestionCategories {...commonProps} />;
+      case "matrix":       return <CompanyMatrix {...commonProps} />;
+      case "paths":        return <SolutionPaths {...commonProps} highlightPathId={highlightPathId} />;
+      case "domains":      return <DomainReference {...commonProps} />;
+      case "universal":    return <UniversalFramework {...commonProps} />;
+      case "question-bank": return <QuestionBank {...commonProps} onNavigateToPath={navigateToPath} />;
+      default:             return null;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -225,6 +249,12 @@ export default function Home() {
                   <span className="text-primary">Search: "{searchQuery}"</span>
                 </>
               )}
+              {activeSection === "paths" && highlightPathId && (
+                <>
+                  <span>/</span>
+                  <span className="text-emerald-400 font-mono text-[11px]">↳ Path {highlightPathId} highlighted</span>
+                </>
+              )}
             </motion.div>
           )}
 
@@ -265,7 +295,7 @@ export default function Home() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               >
-                <ActiveSection searchQuery={searchQuery} />
+                {renderActiveSection()}
               </motion.div>
             </AnimatePresence>
           )}

@@ -1,6 +1,8 @@
 // SolutionPaths.tsx — PM War Room Design System
 // 6 ready-to-use answer paths with step-by-step guidance and pro tips
+// Each card has a stable anchor ID: solution-path-{id} for deep-linking from Question Bank
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { GitBranch, Lightbulb } from "lucide-react";
 import { solutionPaths, questionCategories, categoryColorMap, categoryHexMap, type CategoryId } from "@/lib/data";
@@ -23,7 +25,28 @@ const catColorStyles: Record<string, { bg: string; text: string; border: string 
   cyan: { bg: "bg-cyan-500/15", text: "text-cyan-400", border: "border-cyan-500/30" },
 };
 
-export default function SolutionPaths({ searchQuery }: { searchQuery: string }) {
+// Slug map: frameworkHint string → path id
+export const FRAMEWORK_HINT_TO_PATH_ID: Record<string, number> = {
+  "0→1 Design Path": 1,
+  "Improve Existing Product Path": 2,
+  "Growth Path": 3,
+  "Metric Diagnosis Path": 4,
+  "Accessibility Design Path": 5,
+  "Strategy Path": 6,
+};
+
+export default function SolutionPaths({ searchQuery, highlightPathId }: { searchQuery: string; highlightPathId?: number }) {
+  const highlightRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (highlightPathId && highlightRef.current) {
+      // Small delay to let the section render before scrolling
+      const timer = setTimeout(() => {
+        highlightRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [highlightPathId]);
   const filtered = solutionPaths.filter((path) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
@@ -62,10 +85,15 @@ export default function SolutionPaths({ searchQuery }: { searchQuery: string }) 
             return (
               <motion.div
                 key={path.id}
+                id={`solution-path-${path.id}`}
+                ref={highlightPathId === path.id ? highlightRef : null}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08, duration: 0.4 }}
-                className={`framework-card rounded-xl border ${colors.bg} ${colors.border} overflow-hidden`}
+                className={`framework-card rounded-xl border ${colors.bg} ${colors.border} overflow-hidden transition-all duration-500 ${
+                  highlightPathId === path.id ? "ring-2 ring-offset-1 ring-offset-background" : ""
+                }`}
+                style={highlightPathId === path.id ? { boxShadow: `0 0 0 2px ${colors.accent}` } : {}}
               >
                 {/* Header */}
                 <div className="px-5 py-4 border-b border-border/40">
