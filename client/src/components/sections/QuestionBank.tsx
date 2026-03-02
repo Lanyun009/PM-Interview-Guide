@@ -225,7 +225,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
           <span>Section 7</span>
         </div>
         <h2 className="text-3xl font-bold text-foreground mb-2">
-          Sample Questions
+          Product Sense | Analytical Interview Questions
         </h2>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
           The <span className="text-foreground font-semibold">200 most recent real interview questions</span>{" "}
@@ -236,7 +236,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
             rel="noopener noreferrer"
             className="text-primary hover:underline inline-flex items-center gap-1"
           >
-            Decode and Conquer question bank
+            Lewis Lin's Question Bank
             <ExternalLink size={11} />
           </a>
           {" "}(Sep 2024–Aug 2025), spanning {ALL_COMPANIES.length} companies and {QUESTION_TYPES.length} question types.

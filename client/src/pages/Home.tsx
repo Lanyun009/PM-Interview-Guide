@@ -23,7 +23,7 @@ const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   paths: { title: "Solution Paths", subtitle: "6 ready-to-use structured answer paths" },
   domains: { title: "Domain Reference", subtitle: "9 domains with metrics & typical focus areas" },
   universal: { title: "Universal Framework", subtitle: "7-step structure for any question type" },
-  "question-bank": { title: "Sample Questions", subtitle: "200 most recent real interview questions" },
+  "question-bank": { title: "PS | Analytical Interview Questions", subtitle: "200 most recent real interview questions" },
 };
 
 export default function Home() {
