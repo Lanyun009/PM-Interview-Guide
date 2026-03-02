@@ -25,6 +25,7 @@ import {
   type BankQuestion,
   type QuestionType,
 } from "@/lib/questionBank";
+import PracticeTimer from "@/components/PracticeTimer";
 
 const SOURCE_URL = "https://docs.google.com/spreadsheets/d/1rz10oEeLx-eGnilahKczYPhGfCUzIEKL-xRnjoQ-SX4";
 
@@ -131,6 +132,10 @@ function QuestionCard({
                     </span>
                   </button>
                 )}
+                {/* Practice Timer — starts fresh each time card is expanded */}
+                <div onClick={(e) => e.stopPropagation()}>
+                  <PracticeTimer questionType={q.type} typeColor={color} />
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
