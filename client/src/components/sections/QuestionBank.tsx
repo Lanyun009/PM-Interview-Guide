@@ -220,7 +220,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
           <span>Section 7</span>
         </div>
         <h2 className="text-3xl font-bold text-foreground mb-2">
-          Lewis Lin's PM Question Bank
+          Sample Questions
         </h2>
         <p className="text-muted-foreground text-sm leading-relaxed max-w-2xl">
           The <span className="text-foreground font-semibold">200 most recent real interview questions</span>{" "}
@@ -501,7 +501,7 @@ export default function QuestionBank({ searchQuery: propSearch = "", globalSearc
             rel="noopener noreferrer"
             className="text-primary hover:underline inline-flex items-center gap-1"
           >
-            Lewis Lin's PM Question Bank
+            Lewis Lin's PM Question Bank (Decode & Conquer)
             <ExternalLink size={10} />
           </a>
           {" "}— community-submitted real interview questions from the Decode and Conquer ecosystem.

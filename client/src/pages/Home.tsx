@@ -23,7 +23,7 @@ const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   paths: { title: "Solution Paths", subtitle: "6 ready-to-use structured answer paths" },
   domains: { title: "Domain Reference", subtitle: "9 domains with metrics & typical focus areas" },
   universal: { title: "Universal Framework", subtitle: "7-step structure for any question type" },
-  "question-bank": { title: "Lewis Lin's PM Question Bank", subtitle: "200 most recent real interview questions" },
+  "question-bank": { title: "Sample Questions", subtitle: "200 most recent real interview questions" },
 };
 
 export default function Home() {
@@ -148,7 +148,7 @@ export default function Home() {
                   transition={{ delay: 0.2 }}
                   className="text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4"
                 >
-                  Product Sense<br />
+                  Product Interview<br />
                   <span className="text-primary">Case Study Framework</span>
                 </motion.h1>
 
@@ -308,7 +308,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="border-t border-border px-8 py-4 mt-auto">
           <div className="flex items-center justify-between text-[11px] text-muted-foreground font-mono">
-            <span>Product Sense Case Study Reference</span>
+            <span>Product Interview Case Study Reference</span>
             <span className="text-primary/60">Signal → Category → Path</span>
           </div>
         </footer>
