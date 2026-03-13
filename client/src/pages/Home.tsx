@@ -14,10 +14,13 @@ import DomainReference from "@/components/sections/DomainReference";
 import UniversalFramework from "@/components/sections/UniversalFramework";
 import QuestionBank from "@/components/sections/QuestionBank";
 import Glossary from "@/components/sections/Glossary";
+import StartHere from "@/components/sections/StartHere";
+import OnboardingOverlay, { useOnboarding } from "@/components/OnboardingOverlay";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663351598461/6wyqUKbV9QdyQXzBURssR3/hero-bg-7C8xskdCPo2j9ELra32P2r.webp";
 
 const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
+  start: { title: "Start Here", subtitle: "Understand the framework and when to use each section" },
   signal: { title: "Signal Detector", subtitle: "Read company context → predict question focus" },
   categories: { title: "Question Categories", subtitle: "6 types with signal words, examples & frameworks" },
   matrix: { title: "Company × Question Matrix", subtitle: "Map company type to most likely questions" },
@@ -32,10 +35,11 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<SectionId>("signal");
   const [searchQuery, setSearchQuery] = useState("");
   const [showHero, setShowHero] = useState(true);
-  // highlightPathId: when set, SolutionPaths will scroll to and highlight that card
   const [highlightPathId, setHighlightPathId] = useState<number | undefined>(undefined);
-  // highlightTermId: when set, Glossary will scroll to and highlight that term card
   const [highlightTermId, setHighlightTermId] = useState<string | undefined>(undefined);
+
+  // Onboarding overlay state
+  const { show: showOnboarding, open: openOnboarding, close: closeOnboarding } = useOnboarding();
 
   // Navigate to Glossary and highlight a specific term card
   const navigateToGlossary = useCallback((termId: string) => {
@@ -69,10 +73,18 @@ export default function Home() {
     }
   }, [activeSection]);
 
-  // Keyboard shortcuts: 1–7 for sections
+  // Navigate to any section (used by onboarding overlay)
+  const navigateToSection = useCallback((section: SectionId) => {
+    setActiveSection(section);
+    setShowHero(false);
+    setSearchQuery("");
+  }, []);
+
+  // Keyboard shortcuts: 0–8 for sections
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
     const sectionMap: Record<string, SectionId> = {
+      "0": "start",
       "1": "signal",
       "2": "categories",
       "3": "matrix",
@@ -107,6 +119,7 @@ export default function Home() {
   const renderActiveSection = () => {
     const commonProps = { searchQuery };
     switch (activeSection) {
+      case "start":        return <StartHere onNavigateToSection={handleSectionChange} onOpenTour={openOnboarding} />;
       case "signal":       return <SignalDetector {...commonProps} onNavigateToGlossary={navigateToGlossary} />;
       case "categories":   return <QuestionCategories {...commonProps} onNavigateToGlossary={navigateToGlossary} />;
       case "matrix":       return <CompanyMatrix {...commonProps} />;
@@ -121,12 +134,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex">
+      {/* Onboarding Overlay */}
+      {showOnboarding && (
+        <OnboardingOverlay
+          onClose={closeOnboarding}
+          onNavigateToSection={navigateToSection}
+        />
+      )}
+
       {/* Sidebar */}
       <Sidebar
         activeSection={activeSection}
         onSectionChange={handleSectionChange}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        onOpenTour={openOnboarding}
       />
 
       {/* Main Content */}
@@ -218,17 +240,23 @@ export default function Home() {
                   className="flex flex-wrap gap-3"
                 >
                   <button
-                    onClick={() => handleSectionChange("signal")}
+                    onClick={() => handleSectionChange("start")}
                     className="flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors"
                   >
-                    Start with Signal Detector
+                    Start Here
                     <ArrowRight size={14} />
                   </button>
                   <button
-                    onClick={() => handleSectionChange("categories")}
+                    onClick={openOnboarding}
                     className="flex items-center gap-2 bg-card border border-border text-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-muted/50 transition-colors"
                   >
-                    Browse Question Types
+                    Take the Tour
+                  </button>
+                  <button
+                    onClick={() => handleSectionChange("signal")}
+                    className="flex items-center gap-2 bg-card border border-border text-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-muted/50 transition-colors"
+                  >
+                    Signal Detector
                   </button>
                 </motion.div>
 
@@ -241,7 +269,7 @@ export default function Home() {
                 >
                   <Search size={11} />
                   <span>Use the search bar or press</span>
-                  {["1", "2", "3", "4", "5", "6"].map((k) => (
+                  {["0", "1", "2", "3", "4", "5", "6", "7", "8"].map((k) => (
                     <kbd key={k} className="px-1.5 py-0.5 bg-muted/50 border border-border rounded text-[10px] font-mono">{k}</kbd>
                   ))}
                   <span>to jump to sections</span>
@@ -297,11 +325,15 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 + i * 0.07 }}
                     onClick={() => handleSectionChange(id)}
-                    className="text-left rounded-xl border border-border bg-card/40 hover:bg-card/80 hover:border-primary/30 p-4 transition-all group"
+                    className={`text-left rounded-xl border bg-card/40 hover:bg-card/80 hover:border-primary/30 p-4 transition-all group ${
+                      id === "start" ? "border-primary/40 bg-primary/5" : "border-border"
+                    }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
-                        {String(i + 1).padStart(2, "0")}
+                      <span className={`text-[10px] font-mono uppercase tracking-widest ${
+                        id === "start" ? "text-primary" : "text-muted-foreground"
+                      }`}>
+                        {id === "start" ? "★ START" : String(i).padStart(2, "0")}
                       </span>
                       <ArrowRight size={12} className="text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>

@@ -2,19 +2,21 @@
 // Persistent left sidebar with icon + label navigation, search, and active state
 
 import { useState } from "react";
-import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight, Library, BookMarked, Moon, Sun } from "lucide-react";
+import { Search, X, Zap, LayoutGrid, GitBranch, BarChart3, Globe, BookOpen, ChevronRight, Library, BookMarked, Moon, Sun, PlayCircle, MapPin } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
-export type SectionId = "signal" | "categories" | "matrix" | "paths" | "domains" | "universal" | "question-bank" | "glossary";
+export type SectionId = "start" | "signal" | "categories" | "matrix" | "paths" | "domains" | "universal" | "question-bank" | "glossary";
 
 interface SidebarProps {
   activeSection: SectionId;
   onSectionChange: (section: SectionId) => void;
   searchQuery: string;
   onSearchChange: (q: string) => void;
+  onOpenTour?: () => void;
 }
 
 const navItems: { id: SectionId; label: string; icon: React.ReactNode; shortcut: string }[] = [
+  { id: "start", label: "Start Here", icon: <MapPin size={16} />, shortcut: "0" },
   { id: "signal", label: "Signal Detector", icon: <Zap size={16} />, shortcut: "1" },
   { id: "categories", label: "Question Categories", icon: <LayoutGrid size={16} />, shortcut: "2" },
   { id: "matrix", label: "Company × Question Matrix", icon: <BarChart3 size={16} />, shortcut: "3" },
@@ -25,7 +27,7 @@ const navItems: { id: SectionId; label: string; icon: React.ReactNode; shortcut:
   { id: "glossary", label: "PM Glossary", icon: <BookMarked size={16} />, shortcut: "8" },
 ];
 
-export default function Sidebar({ activeSection, onSectionChange, searchQuery, onSearchChange }: SidebarProps) {
+export default function Sidebar({ activeSection, onSectionChange, searchQuery, onSearchChange, onOpenTour }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
@@ -160,6 +162,15 @@ export default function Sidebar({ activeSection, onSectionChange, searchQuery, o
             PM Interview Reference<br />
             <span className="text-primary/70">Signal → Category → Path</span>
           </div>
+          {onOpenTour && (
+            <button
+              onClick={onOpenTour}
+              className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-accent transition-colors text-[11px] font-mono"
+            >
+              <PlayCircle size={12} />
+              Replay Tour
+            </button>
+          )}
           <div className="text-[9px] text-muted-foreground/50 font-mono text-center">
             PS & Analytical Qs: Lewis Lin's Question Bank
           </div>
