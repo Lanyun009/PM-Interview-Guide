@@ -17,7 +17,7 @@ The site is organized into 9 sections, each solving a specific interview challen
 | # | Section | The Problem It Solves |
 |---|---|---|
 | 0 | **Start Here** | Don't know where to begin? This page maps 8 common interview struggles to the exact section that fixes them. |
-| 1 | **Signal Detector** | Can't tell what type of question you're being asked? Read the company signal → predict the question focus. |
+| 1 | **Problem Decoder** | Can't tell what type of question you're being asked? Read the company signal → predict the question focus. |
 | 2 | **Question Categories** | Know the type but not the structure? 6 categories with signal words, real examples, and step-by-step frameworks. |
 | 3 | **Company × Question Matrix** | Interviewing at Meta, Uber, or Spotify? See the most and least likely question types per company. |
 | 4 | **Solution Paths** | 6 ready-to-use structured answer paths: 0→1 Design, Improve, Growth, Metric Diagnosis, Accessibility, Strategy. |
@@ -30,7 +30,7 @@ The site is organized into 9 sections, each solving a specific interview challen
 
 ## Key Features
 
-**Signal → Category → Path workflow.** The entire site is built around one insight: the company type and product maturity are the strongest predictors of what question you'll get. The Signal Detector reads those signals and routes you to the right framework.
+**Signal → Category → Path workflow.** The entire site is built around one insight: the company type and product maturity are the strongest predictors of what question you'll get. The Problem Decoder reads those signals and routes you to the right framework.
 
 **Global search.** A persistent search bar filters all 9 sections simultaneously. Press `0`–`8` to jump directly to any section.
 

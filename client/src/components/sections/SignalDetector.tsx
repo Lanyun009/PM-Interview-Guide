@@ -148,7 +148,7 @@ export default function SignalDetector({ searchQuery, onNavigateToGlossary }: { 
           <Zap size={18} className="text-primary" />
           <span className="text-[11px] font-mono text-primary uppercase tracking-widest">Section 1</span>
         </div>
-        <h2 className="text-2xl font-bold text-foreground mb-2">Company Signal Detector</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-2">Company Problem Decoder</h2>
         <p className="text-sm text-muted-foreground max-w-2xl">
           Read the company context — predict the question focus before the interview even starts.
           Match the company type to the most likely question category you'll face.

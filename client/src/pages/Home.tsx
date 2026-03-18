@@ -21,7 +21,7 @@ const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663351598461/6wyqUK
 
 const sectionMeta: Record<SectionId, { title: string; subtitle: string }> = {
   start: { title: "Start Here", subtitle: "Understand the framework and when to use each section" },
-  signal: { title: "Signal Detector", subtitle: "Read company context → predict question focus" },
+  signal: { title: "Problem Decoder", subtitle: "Read company context → predict question focus" },
   categories: { title: "Question Categories", subtitle: "6 types with signal words, examples & frameworks" },
   matrix: { title: "Company × Question Matrix", subtitle: "Map company type to most likely questions" },
   paths: { title: "Solution Paths", subtitle: "6 ready-to-use structured answer paths" },
@@ -256,7 +256,7 @@ export default function Home() {
                     onClick={() => handleSectionChange("signal")}
                     className="flex items-center gap-2 bg-card border border-border text-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-muted/50 transition-colors"
                   >
-                    Signal Detector
+                    Problem Decoder
                   </button>
                 </motion.div>
 

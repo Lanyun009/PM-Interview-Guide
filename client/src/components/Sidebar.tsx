@@ -17,7 +17,7 @@ interface SidebarProps {
 
 const navItems: { id: SectionId; label: string; icon: React.ReactNode; shortcut: string }[] = [
   { id: "start", label: "Start Here", icon: <MapPin size={16} />, shortcut: "0" },
-  { id: "signal", label: "Signal Detector", icon: <Zap size={16} />, shortcut: "1" },
+  { id: "signal", label: "Problem Decoder", icon: <Zap size={16} />, shortcut: "1" },
   { id: "categories", label: "Question Categories", icon: <LayoutGrid size={16} />, shortcut: "2" },
   { id: "matrix", label: "Company × Question Matrix", icon: <BarChart3 size={16} />, shortcut: "3" },
   { id: "paths", label: "Solution Paths", icon: <GitBranch size={16} />, shortcut: "4" },

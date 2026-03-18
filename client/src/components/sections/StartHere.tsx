@@ -16,11 +16,11 @@ const struggles = [
     id: 1,
     problem: "I don't know what type of question this is",
     context: "The interviewer says \"How would you improve Spotify?\" and you freeze — is this a metrics question? A product design question? A strategy question?",
-    solution: "Signal Detector",
+    solution: "Problem Decoder",
     section: "signal" as SectionId,
     icon: <Zap size={16} />,
     color: "emerald",
-    why: "The Signal Detector reads the company stage and question wording and tells you exactly which category you're dealing with in seconds.",
+    why: "The Problem Decoder reads the company stage and question wording and tells you exactly which category you're dealing with in seconds.",
   },
   {
     id: 2,
@@ -106,7 +106,7 @@ const colorMap: Record<string, { bg: string; border: string; icon: string; badge
 };
 
 const workflow = [
-  { step: 1, title: "Read the signal", desc: "Use the Signal Detector to identify the question type and company context in the first 30 seconds.", section: "signal" as SectionId, color: "emerald" },
+  { step: 1, title: "Read the signal", desc: "Use the Problem Decoder to identify the question type and company context in the first 30 seconds.", section: "signal" as SectionId, color: "emerald" },
   { step: 2, title: "Pick your path", desc: "Match the question type to one of the 6 Solution Paths. Follow the numbered steps to structure your answer.", section: "paths" as SectionId, color: "rose" },
   { step: 3, title: "Anchor with specifics", desc: "Use the Glossary, Domain Reference, and Company Matrix to add precise metrics, domain vocabulary, and company-specific context.", section: "glossary" as SectionId, color: "orange" },
 ];
@@ -217,7 +217,7 @@ export default function StartHere({ onNavigateToSection, onOpenTour }: StartHere
         <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-4">Jump to Any Section</div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {[
-            { id: "signal" as SectionId, label: "Signal Detector", key: "1" },
+            { id: "signal" as SectionId, label: "Problem Decoder", key: "1" },
             { id: "categories" as SectionId, label: "Question Categories", key: "2" },
             { id: "matrix" as SectionId, label: "Company Matrix", key: "3" },
             { id: "paths" as SectionId, label: "Solution Paths", key: "4" },

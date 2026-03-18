@@ -41,9 +41,9 @@ const slides = [
     id: 2,
     icon: <Zap size={18} />,
     emoji: "⚡",
-    title: "Signal Detector",
+    title: "Problem Decoder",
     subtitle: "Section 1 · Start here every time",
-    body: "The first thing you do with any interview question is not answer it — it's orient yourself. The Signal Detector reads the company stage and question wording to tell you exactly which question type you're facing.",
+    body: "The first thing you do with any interview question is not answer it — it's orient yourself. The Problem Decoder reads the company stage and question wording to tell you exactly which question type you're facing.",
     section: "signal" as SectionId,
     color: "emerald",
     tip: "Struggling with: \"I don't know what type of question this is\"",
@@ -278,7 +278,7 @@ export default function OnboardingOverlay({ onClose, onNavigateToSection }: Onbo
                 className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground text-sm font-semibold py-2.5 rounded-lg hover:opacity-90 transition-opacity"
               >
                 <Zap size={14} />
-                Start with Signal Detector
+                Start with Problem Decoder
               </button>
             </div>
           ) : (

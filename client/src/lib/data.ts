@@ -620,7 +620,7 @@ export function buildSearchIndex(): SearchableItem[] {
       id: `sig-${sig.type}`,
       title: sig.label,
       subtitle: sig.stageLabel,
-      section: "Signal Detector",
+      section: "Problem Decoder",
       tags: [sig.label, sig.stage, ...sig.likelyFocus],
       content: `${sig.label} ${sig.stageLabel} ${sig.description} ${sig.examples.join(" ")} ${sig.likelyFocus.join(" ")}`,
     });
