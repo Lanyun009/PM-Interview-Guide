@@ -1,10 +1,10 @@
-# PM Interview War Room
+# PM Interview: The Playbook
 
 **A searchable, interactive reference site for product sense, analytical, and strategy interviews.**
 
 > In a product interview, the instinct is to jump straight into an answer. Resist it. The first 30 seconds should be spent detecting the question type, reading the company context, and selecting the right framework path. A product sense question at a Series A startup calls for a completely different structure than the same question at Google. This reference maps that signal-to-solution logic — so you walk in knowing exactly which path to take before the interviewer finishes the sentence.
 
-![PM Interview War Room — Site Preview](https://d2xsxph8kpxj0f.cloudfront.net/310519663351598461/6wyqUKbV9QdyQXzBURssR3/readme_hero_11d28966.webp)
+![PM Interview: The Playbook — Site Preview](https://d2xsxph8kpxj0f.cloudfront.net/310519663351598461/6wyqUKbV9QdyQXzBURssR3/readme_hero_11d28966.webp)
 
 🔗 **Live site:** [productsense-6wyqukbv.manus.space](https://productsense-6wyqukbv.manus.space)
 
@@ -42,7 +42,7 @@ The site is organized into 9 sections, each solving a specific interview challen
 
 **Onboarding tour.** A 10-slide animated overlay plays on first visit and introduces each section with coaching context. Replay anytime from the sidebar.
 
-**Light / Dark theme.** Toggle between the dark "War Room" mode and a bright light theme from the sidebar. Preference persists in `localStorage`.
+**Light / Dark theme.** Toggle between the dark "The Playbook" mode and a bright light theme from the sidebar. Preference persists in `localStorage`.
 
 ---
 
